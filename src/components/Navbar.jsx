@@ -1,15 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
-  const [activeNav, setActiveNav] = useState('dashboard');
   const [showLinksDropdown, setShowLinksDropdown] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+  const location = useLocation();
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowLinksDropdown(false);
+      }
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.closest('.hamburger')) {
+        closeMobileMenu();
       }
     };
 
@@ -20,11 +26,11 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { id: 'dashboard', icon: 'fas fa-home', label: 'Dashboard' },
-    { id: 'mahasiswa', icon: 'fas fa-user-graduate', label: 'Mahasiswa' },
-    { id: 'dosen', icon: 'fas fa-chalkboard-teacher', label: 'Dosen' },
-    { id: 'matakuliah', icon: 'fas fa-book', label: 'Mata Kuliah' },
-    { id: 'jadwal', icon: 'fas fa-calendar-alt', label: 'Jadwal' }
+    { id: 'dashboard', path: '/', icon: 'fas fa-home', label: 'Dashboard' },
+    { id: 'mahasiswa', path: '/mahasiswa', icon: 'fas fa-user-graduate', label: 'Mahasiswa' },
+    { id: 'dosen', path: '/dosen', icon: 'fas fa-chalkboard-teacher', label: 'Dosen' },
+    { id: 'matakuliah', path: '/matakuliah', icon: 'fas fa-book', label: 'Mata Kuliah' },
+    { id: 'jadwal', path: '/jadwal', icon: 'fas fa-calendar-alt', label: 'Jadwal' }
   ];
 
   const importantLinks = [
@@ -58,31 +64,78 @@ const Navbar = () => {
     setShowLinksDropdown(!showLinksDropdown);
   };
 
+  const toggleMobileMenu = () => {
+    const newState = !isMobileMenuOpen;
+    setIsMobileMenuOpen(newState);
+    // Prevent body scroll when mobile menu is open
+    if (newState) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+    setShowLinksDropdown(false);
+    // Restore body scroll
+    document.body.style.overflow = 'unset';
+  };
+
+  // Cleanup effect
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
+  // Check if current path is active
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <div className="logo-container">
-          <div className="logo">
-            <img src="/logo.png" alt="logo mipa unimed" />
-          </div>
-          <div className="logo-text">
-            <h2>Ilmu Komputer</h2>
-            <p>UNIVERSITAS NEGERI MEDAN</p>
-          </div>
+          <Link to="/" onClick={closeMobileMenu} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
+            <div className="logo">
+              <img src="/logo.png" alt="logo mipa unimed" />
+            </div>
+            <div className="logo-text">
+              <h2>Ilmu Komputer</h2>
+              <p>UNIVERSITAS NEGERI MEDAN</p>
+            </div>
+          </Link>
         </div>
         
-        <ul className="nav-menu">
-          {/* Link Unimed Dropdown - Dipindahkan ke posisi pertama */}
+        {/* Hamburger Menu Button */}
+        <div 
+          className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}
+          onClick={toggleMobileMenu}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        {/* Navigation Menu */}
+        <ul className={`nav-menu ${isMobileMenuOpen ? 'active' : ''}`} ref={mobileMenuRef}>
+          {/* Link Unimed Dropdown */}
           <li 
             ref={dropdownRef}
             className={`nav-item dropdown ${showLinksDropdown ? 'active' : ''}`}
-            onMouseEnter={() => setShowLinksDropdown(true)}
-            onMouseLeave={() => setShowLinksDropdown(false)}
-            onClick={toggleLinksDropdown}
+            onMouseEnter={() => !window.matchMedia("(max-width: 768px)").matches && setShowLinksDropdown(true)}
+            onMouseLeave={() => !window.matchMedia("(max-width: 768px)").matches && setShowLinksDropdown(false)}
           >
-            <i className="fas fa-external-link-alt"></i>
-            <span>Link Unimed</span>
-            <i className={`fas fa-chevron-down dropdown-arrow ${showLinksDropdown ? 'rotated' : ''}`}></i>
+            <div 
+              className="dropdown-toggle"
+              onClick={toggleLinksDropdown}
+            >
+              <i className="fas fa-external-link-alt"></i>
+              <span>Link Unimed</span>
+              <i className={`fas fa-chevron-down dropdown-arrow ${showLinksDropdown ? 'rotated' : ''}`}></i>
+            </div>
             
             {/* Dropdown Menu */}
             {showLinksDropdown && (
@@ -94,7 +147,10 @@ const Navbar = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="dropdown-link"
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      closeMobileMenu();
+                    }}
                   >
                     <div className="dropdown-link-icon">
                       <i className={link.icon}></i>
@@ -109,21 +165,38 @@ const Navbar = () => {
             )}
           </li>
 
-          {/* Menu items lainnya */}
+          {/* Menu items lainnya dengan Link */}
           {navItems.map(item => (
             <li 
               key={item.id}
-              className={`nav-item ${activeNav === item.id ? 'active' : ''}`}
-              onClick={() => {
-                setActiveNav(item.id);
-                setShowLinksDropdown(false);
-              }}
+              className={`nav-item ${isActive(item.path) ? 'active' : ''}`}
             >
-              <i className={item.icon}></i>
-              <span>{item.label}</span>
+              <Link 
+                to={item.path} 
+                onClick={closeMobileMenu}
+                style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  textDecoration: 'none', 
+                  color: 'inherit',
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <i className={item.icon}></i>
+                <span>{item.label}</span>
+              </Link>
             </li>
           ))}
         </ul>
+
+        {/* Backdrop Overlay */}
+        {isMobileMenuOpen && (
+          <div 
+            className="mobile-menu-backdrop active"
+            onClick={closeMobileMenu}
+          ></div>
+        )}
       </div>
     </nav>
   );
