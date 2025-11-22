@@ -6,24 +6,35 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
+  const hamburgerRef = useRef(null);
   const location = useLocation();
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // Close dropdown if clicked outside
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowLinksDropdown(false);
       }
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.closest('.hamburger')) {
+      
+      // Close mobile menu if clicked outside
+      if (isMobileMenuOpen && 
+          mobileMenuRef.current && 
+          !mobileMenuRef.current.contains(event.target) && 
+          hamburgerRef.current && 
+          !hamburgerRef.current.contains(event.target)) {
         closeMobileMenu();
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
-  }, []);
+  }, [isMobileMenuOpen]);
 
   const navItems = [
     { id: 'dashboard', path: '/', icon: 'fas fa-home', label: 'Dashboard' },
@@ -67,11 +78,14 @@ const Navbar = () => {
   const toggleMobileMenu = () => {
     const newState = !isMobileMenuOpen;
     setIsMobileMenuOpen(newState);
+    
     // Prevent body scroll when mobile menu is open
     if (newState) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
+      document.documentElement.style.overflow = 'unset';
     }
   };
 
@@ -80,12 +94,14 @@ const Navbar = () => {
     setShowLinksDropdown(false);
     // Restore body scroll
     document.body.style.overflow = 'unset';
+    document.documentElement.style.overflow = 'unset';
   };
 
   // Cleanup effect
   useEffect(() => {
     return () => {
       document.body.style.overflow = 'unset';
+      document.documentElement.style.overflow = 'unset';
     };
   }, []);
 
@@ -110,14 +126,17 @@ const Navbar = () => {
         </div>
         
         {/* Hamburger Menu Button */}
-        <div 
+        <button 
+          ref={hamburgerRef}
           className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}
           onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
+          type="button"
         >
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
 
         {/* Navigation Menu */}
         <ul className={`nav-menu ${isMobileMenuOpen ? 'active' : ''}`} ref={mobileMenuRef}>
@@ -125,8 +144,8 @@ const Navbar = () => {
           <li 
             ref={dropdownRef}
             className={`nav-item dropdown ${showLinksDropdown ? 'active' : ''}`}
-            onMouseEnter={() => !window.matchMedia("(max-width: 768px)").matches && setShowLinksDropdown(true)}
-            onMouseLeave={() => !window.matchMedia("(max-width: 768px)").matches && setShowLinksDropdown(false)}
+            onMouseEnter={() => window.innerWidth > 768 && setShowLinksDropdown(true)}
+            onMouseLeave={() => window.innerWidth > 768 && setShowLinksDropdown(false)}
           >
             <div 
               className="dropdown-toggle"
