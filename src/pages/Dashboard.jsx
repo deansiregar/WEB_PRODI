@@ -14,18 +14,18 @@ const Dashboard = () => {
       <StatsCards />
       <DashboardContent />
       <Highlights />
-      <ParallaxSection 
+        <ParallaxSection 
         backgroundImage="parallax.png"
-        overlayColor="rgba(46, 139, 87, 0.7)"
-        title="Lorem ipsum dolor sit amet."
-        content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem dolorem quo eius incidunt laudantium in, numquam error doloribus. Modi, illum."
+        overlayColor="rgba(46, 139, 87, 0.8)" 
+        title="Siap Menjadi Talenta Digital?"
+        content="Kami mencetak lulusan yang tidak hanya pandai coding, tetapi juga mampu menganalisis masalah dan menciptakan solusi cerdas melalui teknologi. Mari wujudkan masa depan digital bersama Ilmu Komputer UNIMED."
       />
       <VisionMission />
-      <ParallaxSection 
+        <ParallaxSection 
         backgroundImage="parallax.png"
-        overlayColor="rgba(44, 62, 80, 0.7)"
-        title="Lorem ipsum dolor sit amet."
-        content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur pariatur quaerat placeat voluptas odio, voluptate veniam in qui fuga deleniti!"
+        overlayColor="rgba(44, 62, 80, 0.85)" 
+        title="Lingkungan Belajar Kolaboratif"
+        content="Bergabunglah dalam ekosistem akademik yang mendukung kreativitas. Di sini, kami belajar, berinovasi, dan tumbuh bersama untuk memberikan dampak positif bagi bangsa melalui sains dan teknologi."
       />
     </div>
   );

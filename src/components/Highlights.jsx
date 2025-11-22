@@ -2,20 +2,20 @@ import React from 'react';
 
 const Highlights = () => {
   const highlights = [
-    {
+{
       icon: "fas fa-laptop-code",
-      title: "Lorem, ipsum.",
-      description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti, debitis."
+      title: "Kurikulum Terkini",
+      description: "Mempelajari teknologi terbaru seperti AI, Cloud Computing, dan Mobile Development yang relevan dengan kebutuhan industri 4.0."
     },
     {
       icon: "fas fa-chalkboard-teacher",
-      title: "Lorem, ipsum.",
-      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem, magni!"
+      title: "Dosen Kompeten",
+      description: "Dibimbing langsung oleh tenaga pengajar profesional dan berpengalaman yang ahli di bidang ilmu komputer dan sains data."
     },
     {
       icon: "fas fa-flask",
-      title: "Lorem, ipsum.",
-      description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel, consequuntur."
+      title: "Riset & Inovasi",
+      description: "Fasilitas laboratorium lengkap untuk mendukung penelitian mahasiswa dalam menciptakan solusi digital yang bermanfaat bagi masyarakat."
     }
   ];
 

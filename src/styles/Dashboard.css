@@ -1111,140 +1111,7 @@ body {
     }
 }
 
-@media (max-width: 768px) {
-    .hamburger {
-        display: flex;
-    }
 
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 280px;
-        height: 100vh;
-        background: linear-gradient(135deg, var(--primary), #1e6b47);
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 80px 20px 40px;
-        transition: right 0.3s ease-in-out;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-        z-index: 1001;
-        overflow-y: auto;
-        gap: 0;
-    }
-
-    .nav-menu.active {
-        right: 0;
-    }
-
-    .nav-item {
-        width: 100%;
-        padding: 15px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        justify-content: flex-start;
-        margin: 0;
-    }
-
-    .nav-item:last-child {
-        border-bottom: none;
-    }
-
-    .nav-item:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .nav-item.active {
-        background-color: rgba(255, 255, 255, 0.15);
-    }
-
-    /* Dropdown in Mobile */
-    .nav-item.dropdown {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .dropdown-toggle {
-        width: 100%;
-    }
-
-    .dropdown-menu {
-        position: static;
-        width: 100%;
-        margin-top: 10px;
-        box-shadow: none;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        animation: none;
-    }
-
-    .dropdown-menu::before {
-        display: none;
-    }
-
-    .dropdown-link {
-        background: rgba(255, 255, 255, 0.05);
-        margin-bottom: 8px;
-    }
-
-    .dropdown-link:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: none;
-    }
-
-    .logo-text h2 {
-        font-size: 1.1rem;
-    }
-
-    .logo-text p {
-        font-size: 0.7rem;
-    }
-
-    .logo {
-        width: 45px;
-        height: 45px;
-    }
-
-    .stats-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .links-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .carousel-section {
-        height: 300px;
-    }
-    
-    .carousel-text h2 {
-        font-size: 2.5rem;
-    }
-    
-    .carousel-text p {
-        font-size: 1.2rem;
-    }
-    
-    .parallax-section {
-        height: 300px;
-    }
-    
-    .parallax-content h2 {
-        font-size: 2rem;
-    }
-    
-    .parallax-content p {
-        font-size: 1rem;
-    }
-    
-    .vision, .mission {
-        padding: 20px;
-    }
-    
-    .footer-logo {
-        width: 100px;
-        height: 100px;
-    }
-}
 
 @media (max-width: 576px) {
     .stats-container {
@@ -1358,72 +1225,7 @@ html, body {
 }
 
 /* Improved mobile menu */
-@media (max-width: 768px) {
-    /* Ensure full width for all containers */
-    .navbar-container,
-    .main-content,
-    .carousel-section,
-    .stats-container,
-    .dashboard-content,
-    .vision-mission-container,
-    .footer-container {
-        width: 100%;
-        max-width: 100%;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-    
-    /* Fix mobile menu positioning */
-    .nav-menu {
-        width: 280px;
-        right: -280px; /* Start off-screen */
-        transition: right 0.3s ease-in-out;
-    }
-    
-    .nav-menu.active {
-        right: 0;
-    }
-    
-    /* Improve hamburger button visibility */
-    .hamburger {
-        display: flex;
-        z-index: 1003;
-        position: relative;
-    }
-    
-    /* Better mobile backdrop */
-    .mobile-menu-backdrop.active {
-        display: block;
-        z-index: 999;
-    }
-    
-    /* Ensure content doesn't overflow */
-    .carousel-text h2 {
-        font-size: 1.8rem;
-        padding: 0 10px;
-    }
-    
-    .carousel-text p {
-        font-size: 1rem;
-        padding: 0 10px;
-    }
-    
-    /* Fix stats cards on mobile */
-    .stats-container {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    /* Improve footer on mobile */
-    .footer-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    
-    .footer-logo-section {
-        flex-direction: column;
-    }
-}
+
 
 @media (max-width: 576px) {
     /* Further mobile optimizations */
@@ -1464,19 +1266,134 @@ html, body {
 }
 
 /* Improve touch targets for mobile */
+/* ===== MOBILE RESPONSIVE FIX (Paste di paling bawah file) ===== */
 @media (max-width: 768px) {
+    /* 1. Hamburger Menu & Navbar */
+    .hamburger {
+        display: flex;
+    }
+    
+    .logo-text h2 { font-size: 1rem; }
+    .logo-text p { font-size: 0.65rem; }
+    .logo { width: 40px; height: 40px; }
+
+    /* 2. Sidebar Container (Drawer) */
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        /* Background solid hijau tua agar tidak transparan */
+        background: #1e6b47; 
+        background: linear-gradient(180deg, var(--primary) 0%, #144d33 100%);
+        flex-direction: column;
+        align-items: stretch; /* Pastikan item memenuhi lebar */
+        padding: 80px 15px 40px;
+        transition: right 0.3s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        z-index: 1001;
+        overflow-y: auto;
+        gap: 10px;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    /* 3. Nav Item Wrapper */
     .nav-item {
-        padding: 20px 0;
-        min-height: 60px;
+        width: 100%;
+        /* Flex column PENTING agar dropdown turun ke bawah (accordion), bukan ke samping/numpuk */
+        display: flex;
+        flex-direction: column !important; 
+        align-items: stretch;
+        padding: 0; /* Reset padding wrapper */
+        border: none;
+        height: auto !important; /* Pastikan tinggi otomatis menyesuaikan isi */
     }
-    
-    .dropdown-link {
+
+    .nav-item:hover, .nav-item.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+    }
+
+    /* Link Utama & Toggle Dropdown */
+    .nav-item a, 
+    .dropdown-toggle {
         padding: 15px;
-        min-height: 50px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        color: white;
+        text-decoration: none;
+        justify-content: flex-start;
+    }
+
+    .dropdown-toggle {
+        justify-content: space-between; /* Panah di kanan */
+        cursor: pointer;
+    }
+
+    /* 4. PERBAIKAN UTAMA: Dropdown Menu */
+    .dropdown-menu {
+        /* position: static !important MEMAKSA elemen masuk ke aliran dokumen */
+        position: static !important; 
+        float: none !important;
+        transform: none !important; /* Matikan animasi desktop */
+        opacity: 1 !important; /* Pastikan terlihat */
+        visibility: visible !important;
+        
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+        border: none;
+        border-radius: 8px;
+        
+        /* Background gelap untuk kontras tulisan putih */
+        background-color: rgba(0, 0, 0, 0.25) !important; 
+        padding: 10px;
+        
+        /* Tampilkan sebagai block jika dirender oleh React */
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* Item di dalam Dropdown */
+    .dropdown-link {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        border-radius: 6px;
     }
     
-    .link-card {
-        padding: 20px;
-        min-height: 60px;
+    .dropdown-link:hover {
+        background: rgba(255, 255, 255, 0.1);
     }
+
+    .dropdown-link-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+        margin-right: 10px;
+    }
+
+    .dropdown-link-content h4 {
+        font-size: 0.9rem;
+        color: #ffffff !important; /* Paksa putih */
+        font-weight: 600;
+    }
+
+    .dropdown-link-content p {
+        font-size: 0.75rem;
+        color: #e0e0e0 !important; /* Abu-abu terang */
+    }
+
+    /* Fix Layout Lainnya */
+    .stats-container { grid-template-columns: 1fr; }
+    .carousel-section, .parallax-section { height: 250px; }
+    .carousel-text h2 { font-size: 1.8rem; }
+    .footer-container { grid-template-columns: 1fr; text-align: center; }
+    .footer-logo-section { flex-direction: column; }
 }
