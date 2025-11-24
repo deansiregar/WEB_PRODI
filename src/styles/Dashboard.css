@@ -28,7 +28,19 @@ body {
     min-height: 100vh;
 }
 
-/* ===== NAVBAR STYLES ===== */
+/* ===== LAYOUT FIXES ===== */
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.container-fix {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* ===== NAVBAR STYLES - DIPERBAIKI ===== */
 .navbar {
     background: linear-gradient(to right, var(--primary), var(--secondary));
     color: white;
@@ -41,17 +53,20 @@ body {
 
 .navbar-container {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
     padding: 0 20px;
     min-height: 70px;
     position: relative;
+    width: 100%;
+    max-width: 100%;
 }
 
 .logo-container {
     display: flex;
     align-items: center;
     z-index: 1002;
+    flex-shrink: 0;
 }
 
 .logo {
@@ -87,35 +102,47 @@ body {
     white-space: nowrap;
 }
 
-/* Desktop Navigation */
+/* Navigation Menu - DIPERBAIKI */
 .nav-menu {
     display: flex;
     list-style: none;
-    align-items: center;
+    align-items: stretch;
     margin: 0;
     padding: 0;
     gap: 0;
+    height: 100%;
+    flex-wrap: nowrap;
+    overflow: visible;
 }
 
 .nav-item {
-    padding: 18px 16px;
+    position: relative;
+    padding: 0;
     cursor: pointer;
     transition: all 0.3s;
     border-bottom: 4px solid transparent;
     display: flex;
     align-items: center;
     white-space: nowrap;
-    position: relative;
+    flex-shrink: 0;
 }
 
-.nav-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-bottom-color: var(--accent);
+/* Area Klik - DIPERBAIKI */
+.nav-item a,
+.nav-item .dropdown-toggle {
+    display: flex !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    padding: 18px 16px !important;
+    transition: all 0.3s !important;
+    border-bottom: 4px solid transparent !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
 }
 
-.nav-item.active {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-bottom-color: var(--accent);
+.nav-item .dropdown-toggle {
+    cursor: pointer !important;
 }
 
 .nav-item i {
@@ -123,17 +150,22 @@ body {
     font-size: 1rem;
 }
 
+/* Hover & Active States */
+.nav-item a:hover,
+.nav-item .dropdown-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-bottom-color: var(--accent) !important;
+}
+
+.nav-item.active a,
+.nav-item.active .dropdown-toggle {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    border-bottom-color: var(--accent) !important;
+}
+
 /* Dropdown Styles */
 .nav-item.dropdown {
     position: relative;
-}
-
-.dropdown-toggle {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
 }
 
 .dropdown-arrow {
@@ -312,6 +344,8 @@ body {
     padding: 20px;
     overflow-y: auto;
     flex: 1;
+    width: 100%;
+    max-width: 100%;
 }
 
 .header {
@@ -324,6 +358,39 @@ body {
 .header h1 {
     color: var(--primary);
     font-size: 1.8rem;
+}
+
+/* Content Sections */
+.content-section {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.content-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+}
+
+.content-section h2 {
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.content-section p {
+    color: var(--dark);
+    line-height: 1.6;
+    font-size: 1rem;
 }
 
 /* Carousel Section */
@@ -417,7 +484,7 @@ body {
     background-color: white;
 }
 
-/* Dashboard Stats */
+/* Stats Cards */
 .stats-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -597,7 +664,7 @@ body {
     opacity: 0.8;
 }
 
-/* Charts and Info Section */
+/* Dashboard Content Layout */
 .dashboard-content {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -708,7 +775,7 @@ body {
     color: var(--dark);
 }
 
-/* Visi & Misi Section */
+/* Vision & Mission Section */
 .vision-mission-container {
     background-color: white;
     border-radius: var(--border-radius);
@@ -1052,40 +1119,89 @@ body {
     opacity: 0.8;
 }
 
-/* Content Section Styles untuk halaman lainnya */
-.content-section {
-    background-color: white;
-    border-radius: var(--border-radius);
-    padding: 30px;
-    box-shadow: var(--box-shadow);
-    margin-bottom: 30px;
-    position: relative;
-    overflow: hidden;
+/* ===== SPECIAL COMPONENT STYLES ===== */
+
+/* Career Cards */
+.career-card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15) !important;
 }
 
-.content-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: linear-gradient(to right, var(--primary), var(--secondary));
+.career-card:hover i {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
 }
 
-.content-section h2 {
-    color: var(--primary);
-    margin-bottom: 20px;
-    font-size: 1.5rem;
+/* Achievement Scroll */
+.achievement-scroll::-webkit-scrollbar {
+    height: 8px;
 }
 
-.content-section p {
-    color: var(--dark);
-    line-height: 1.6;
-    font-size: 1rem;
+.achievement-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.achievement-scroll::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+.achievement-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary);
+}
+
+/* News Items */
+.news-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.featured-news-item:hover {
+    background-color: rgba(46, 139, 87, 0.03);
+}
+
+.featured-news-item:nth-child(odd) {
+    background-color: rgba(46, 139, 87, 0.02);
+}
+
+.featured-news-item:nth-child(even) {
+    background-color: rgba(60, 179, 113, 0.02);
+}
+
+/* Jadwal Styles */
+.class-item-hover {
+    grid-template-columns: 120px 1fr 150px;
+    gap: 16px;
+    align-items: start;
+    transition: background-color 0.2s;
+}
+
+.time-box {
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.room-badge {
+    justify-content: flex-end;
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 0.95rem;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
+
+/* Desktop Hover Effects */
+@media (min-width: 769px) {
+    .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+    }
+    
+    .nav-item.dropdown:hover .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+}
+
+/* Tablet Breakpoint */
 @media (max-width: 992px) {
     .dashboard-content {
         grid-template-columns: 1fr;
@@ -1111,27 +1227,223 @@ body {
     }
 }
 
+/* Mobile Breakpoint - DIPERBAIKI */
+@media (max-width: 768px) {
+    /* Hamburger Menu */
+    .hamburger {
+        display: flex;
+    }
+    
+    /* Mobile Navigation */
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #1e6b47;
+        background: linear-gradient(180deg, var(--primary) 0%, #144d33 100%);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 80px 15px 40px;
+        transition: right 0.3s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        z-index: 1001;
+        overflow-y: auto;
+        gap: 10px;
+    }
 
+    .nav-menu.active {
+        right: 0;
+    }
 
-@media (max-width: 576px) {
+    /* Mobile Nav Items */
+    .nav-item {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0;
+        border: none;
+        height: auto;
+    }
+
+    .nav-item:hover, .nav-item.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+    }
+
+    .nav-item a,
+    .nav-item .dropdown-toggle {
+        padding: 15px !important;
+        width: 100% !important;
+        justify-content: flex-start !important;
+    }
+
+    .dropdown-toggle {
+        justify-content: space-between;
+    }
+
+    /* Mobile Dropdown */
+    .dropdown-menu {
+        position: static !important;
+        width: 100% !important;
+        margin: 10px 0 !important;
+        box-shadow: none !important;
+        background-color: rgba(255, 255, 255, 0.95) !important; /* Background solid */
+        padding: 15px !important;
+        border-radius: 8px !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        backdrop-filter: blur(10px); /* Efek blur modern */
+    }
+
+    .dropdown-link {
+        margin: 8px 0 !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        padding: 12px !important;
+        border-radius: 6px !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .dropdown-link:hover {
+        background: rgba(255, 255, 255, 0.2) !important;
+        transform: translateX(5px) !important;
+    }
+
+    .dropdown-link-icon {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 1rem !important;
+        margin-right: 12px !important;
+        background: rgba(255, 255, 255, 0.9) !important; /* Background icon solid */
+    }
+
+    /* Warna khusus untuk icon di mobile */
+    .dropdown-link:nth-child(1) .dropdown-link-icon {
+        background: linear-gradient(135deg, #3498db, #2980b9) !important;
+    }
+
+    .dropdown-link:nth-child(2) .dropdown-link-icon {
+        background: linear-gradient(135deg, #2ecc71, #27ae60) !important;
+    }
+
+    .dropdown-link:nth-child(3) .dropdown-link-icon {
+        background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+    }
+
+    .dropdown-link:nth-child(4) .dropdown-link-icon {
+        background: linear-gradient(135deg, #a6cc5b, #acc420) !important;
+    }
+
+    .dropdown-link-content h4 {
+        font-size: 0.95rem !important;
+        color: white !important; /* Teks putih untuk kontras */
+        font-weight: 600 !important;
+        margin-bottom: 4px !important;
+    }
+
+    .dropdown-link-content p {
+        font-size: 0.8rem !important;
+        color: rgba(255, 255, 255, 0.8) !important; /* Teks sedikit transparan */
+        margin: 0 !important;
+        line-height: 1.3 !important;
+    }
+
+    .dropdown-link-content h4 {
+        font-size: 0.9rem;
+        color: #ffffff !important;
+        font-weight: 600;
+    }
+
+    .dropdown-link-content p {
+        font-size: 0.75rem;
+        color: #e0e0e0 !important;
+    }
+
+    /* Mobile Layout Adjustments */
     .stats-container {
         grid-template-columns: 1fr;
     }
     
-    .carousel-section {
+    .carousel-section, .parallax-section {
         height: 250px;
     }
     
     .carousel-text h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     
     .carousel-text p {
         font-size: 1rem;
     }
     
-    .parallax-section {
-        height: 250px;
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .footer-logo-section {
+        flex-direction: column;
+    }
+
+    /* Jadwal Mobile */
+    .class-item-hover {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+    
+    .time-box {
+        display: inline-block;
+        margin-bottom: 4px;
+    }
+    
+    .room-badge {
+        justify-content: flex-start !important;
+        color: var(--gray);
+        font-size: 0.9rem;
+        margin-top: 4px;
+    }
+
+    /* Navbar Mobile Adjustments */
+    .navbar-container {
+        padding: 0 15px;
+    }
+
+    .logo-text h2 {
+        font-size: 1rem;
+    }
+
+    .logo-text p {
+        font-size: 0.65rem;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Small Mobile Breakpoint */
+@media (max-width: 576px) {
+    .main-content {
+        padding: 10px;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .carousel-section {
+        height: 200px;
+    }
+    
+    .carousel-text h2 {
+        font-size: 1.5rem;
+    }
+    
+    .carousel-text p {
+        font-size: 0.9rem;
     }
     
     .parallax-content h2 {
@@ -1154,266 +1466,30 @@ body {
         width: 80px;
         height: 80px;
     }
+}
 
-    .navbar-container {
-        padding: 0 15px;
-    }
-
+@media (max-width: 480px) {
     .nav-menu {
-        width: 260px;
-    }
-
-    .logo-text h2 {
-        font-size: 1rem;
-    }
-
-    .logo-text p {
-        font-size: 0.65rem;
-    }
-
-    .logo {
-        width: 40px;
-        height: 40px;
-    }
-
-    .dropdown-link-icon {
-        width: 36px;
-        height: 36px;
-        margin-right: 10px;
-    }
-
-    .dropdown-link-content h4 {
-        font-size: 0.9rem;
-    }
-
-    .dropdown-link-content p {
-        font-size: 0.75rem;
-    }
-}
-
-/* Desktop hover effects */
-@media (min-width: 769px) {
-    .nav-item.dropdown:hover .dropdown-menu {
-        display: block;
-    }
-    
-    .nav-item.dropdown:hover .dropdown-arrow {
-        transform: rotate(180deg);
-    }
-}
-
-/* ===== FIXES FOR MOBILE RESPONSIVENESS ===== */
-
-/* Ensure full width on mobile */
-html, body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-/* Main content fixes for mobile */
-.main-content {
-    width: 100%;
-    max-width: 100%;
-    padding: 15px;
-}
-
-/* Fix for navbar on mobile */
-.navbar-container {
-    width: 100%;
-    max-width: 100%;
-}
-
-/* Improved mobile menu */
-
-
-@media (max-width: 576px) {
-    /* Further mobile optimizations */
-    .main-content {
-        padding: 10px;
-    }
-    
-    .header h1 {
-        font-size: 1.5rem;
-    }
-    
-    .carousel-section {
-        height: 200px;
-    }
-    
-    .carousel-text h2 {
-        font-size: 1.5rem;
-    }
-    
-    .carousel-text p {
-        font-size: 0.9rem;
-    }
-    
-    /* Fix logo text on very small screens */
-    .logo-text h2 {
-        font-size: 0.9rem;
-    }
-    
-    .logo-text p {
-        font-size: 0.6rem;
-    }
-}
-
-/* Prevent horizontal scrolling */
-.container-fix {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-/* Improve touch targets for mobile */
-/* ===== MOBILE RESPONSIVE FIX (Paste di paling bawah file) ===== */
-@media (max-width: 768px) {
-    /* 1. Hamburger Menu & Navbar */
-    .hamburger {
-        display: flex;
-    }
-    
-    .logo-text h2 { font-size: 1rem; }
-    .logo-text p { font-size: 0.65rem; }
-    .logo { width: 40px; height: 40px; }
-
-    /* 2. Sidebar Container (Drawer) */
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 280px;
-        height: 100vh;
-        /* Background solid hijau tua agar tidak transparan */
-        background: #1e6b47; 
-        background: linear-gradient(180deg, var(--primary) 0%, #144d33 100%);
-        flex-direction: column;
-        align-items: stretch; /* Pastikan item memenuhi lebar */
-        padding: 80px 15px 40px;
-        transition: right 0.3s ease-in-out;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
-        z-index: 1001;
-        overflow-y: auto;
-        gap: 10px;
+        width: 100vw !important;
+        right: -100vw !important;
     }
 
     .nav-menu.active {
-        right: 0;
+        right: 0 !important;
     }
 
-    /* 3. Nav Item Wrapper */
-    .nav-item {
-        width: 100%;
-        /* Flex column PENTING agar dropdown turun ke bawah (accordion), bukan ke samping/numpuk */
-        display: flex;
-        flex-direction: column !important; 
-        align-items: stretch;
-        padding: 0; /* Reset padding wrapper */
-        border: none;
-        height: auto !important; /* Pastikan tinggi otomatis menyesuaikan isi */
-    }
-
-    .nav-item:hover, .nav-item.active {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-    }
-
-    /* Link Utama & Toggle Dropdown */
-    .nav-item a, 
-    .dropdown-toggle {
-        padding: 15px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        color: white;
-        text-decoration: none;
-        justify-content: flex-start;
-    }
-
-    .dropdown-toggle {
-        justify-content: space-between; /* Panah di kanan */
-        cursor: pointer;
-    }
-
-    /* 4. PERBAIKAN UTAMA: Dropdown Menu */
     .dropdown-menu {
-        /* position: static !important MEMAKSA elemen masuk ke aliran dokumen */
-        position: static !important; 
-        float: none !important;
-        transform: none !important; /* Matikan animasi desktop */
-        opacity: 1 !important; /* Pastikan terlihat */
-        visibility: visible !important;
-        
-        width: 100%;
-        margin: 0;
-        box-shadow: none;
-        border: none;
-        border-radius: 8px;
-        
-        /* Background gelap untuk kontras tulisan putih */
-        background-color: rgba(0, 0, 0, 0.25) !important; 
-        padding: 10px;
-        
-        /* Tampilkan sebagai block jika dirender oleh React */
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+        padding: 12px !important;
     }
 
-    /* Item di dalam Dropdown */
     .dropdown-link {
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 10px;
-        border-radius: 6px;
-    }
-    
-    .dropdown-link:hover {
-        background: rgba(255, 255, 255, 0.1);
+        padding: 10px !important;
+        margin: 6px 0 !important;
     }
 
     .dropdown-link-icon {
-        width: 32px;
-        height: 32px;
-        font-size: 0.9rem;
-        margin-right: 10px;
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.9rem !important;
     }
-
-    .dropdown-link-content h4 {
-        font-size: 0.9rem;
-        color: #ffffff !important; /* Paksa putih */
-        font-weight: 600;
-    }
-
-    .dropdown-link-content p {
-        font-size: 0.75rem;
-        color: #e0e0e0 !important; /* Abu-abu terang */
-    }
-
-    /* Fix Layout Lainnya */
-    .stats-container { grid-template-columns: 1fr; }
-    .carousel-section, .parallax-section { height: 250px; }
-    .carousel-text h2 { font-size: 1.8rem; }
-    .footer-container { grid-template-columns: 1fr; text-align: center; }
-    .footer-logo-section { flex-direction: column; }
-}
-
-@media (max-width: 768px) {
-  /* Jadwal Responsive */
-  .class-item-hover {
-    grid-template-columns: 1fr !important; /* Ubah jadi 1 kolom vertikal */
-    gap: 8px !important;
-  }
-  
-  .time-box {
-    display: inline-block;
-    margin-bottom: 4px;
-  }
-  
-  .room-badge {
-    justify-content: flex-start !important; /* Geser icon lokasi ke kiri */
-    color: var(--gray);
-    font-size: 0.9rem;
-    margin-top: 4px;
- }
 }

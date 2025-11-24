@@ -12,12 +12,10 @@ const Navbar = () => {
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Close dropdown if clicked outside
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowLinksDropdown(false);
       }
       
-      // Close mobile menu if clicked outside
       if (isMobileMenuOpen && 
           mobileMenuRef.current && 
           !mobileMenuRef.current.contains(event.target) && 
@@ -38,7 +36,8 @@ const Navbar = () => {
 
   const navItems = [
     { id: 'dashboard', path: '/', icon: 'fas fa-home', label: 'Dashboard' },
-    { id: 'mahasiswa', path: '/mahasiswa', icon: 'fas fa-user-graduate', label: 'Mahasiswa' },
+    { id: 'profil', path: '/profil', icon: 'fas fa-info-circle', label: 'Profil Prodi' },
+    { id: 'berita', path: '/berita', icon: 'fas fa-newspaper', label: 'Berita' },
     { id: 'dosen', path: '/dosen', icon: 'fas fa-chalkboard-teacher', label: 'Dosen' },
     { id: 'matakuliah', path: '/matakuliah', icon: 'fas fa-book', label: 'Mata Kuliah' },
     { id: 'jadwal', path: '/jadwal', icon: 'fas fa-calendar-alt', label: 'Jadwal' }
@@ -150,15 +149,30 @@ const Navbar = () => {
             <div 
               className="dropdown-toggle"
               onClick={toggleLinksDropdown}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                textDecoration: 'none',
+                color: 'inherit',
+                cursor: 'pointer'
+              }}
             >
               <i className="fas fa-external-link-alt"></i>
               <span>Link Unimed</span>
               <i className={`fas fa-chevron-down dropdown-arrow ${showLinksDropdown ? 'rotated' : ''}`}></i>
             </div>
             
-            {/* Dropdown Menu */}
+            {/* Dropdown Menu - DITAMBAHKAN STYLE UNTUK MOBILE */}
             {showLinksDropdown && (
-              <div className="dropdown-menu">
+              <div 
+                className="dropdown-menu"
+                style={{
+                  // Tambahan style untuk memastikan tampilan konsisten
+                  display: 'block',
+                  opacity: 1,
+                  visibility: 'visible'
+                }}
+              >
                 {importantLinks.map((link, index) => (
                   <a
                     key={index}
@@ -169,6 +183,12 @@ const Navbar = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                       closeMobileMenu();
+                    }}
+                    style={{
+                      // Style tambahan untuk konsistensi
+                      display: 'flex',
+                      alignItems: 'center',
+                      textDecoration: 'none'
                     }}
                   >
                     <div className="dropdown-link-icon">
@@ -198,11 +218,9 @@ const Navbar = () => {
                   alignItems: 'center', 
                   textDecoration: 'none', 
                   color: 'inherit',
-                  width: '100%',
-                  height: '100%'
                 }}
               >
-                <i className={item.icon}></i>
+                <i className={item.icon} style={{ marginRight: '8px' }}></i>
                 <span>{item.label}</span>
               </Link>
             </li>

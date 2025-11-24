@@ -11,7 +11,7 @@ const StatsCards = () => {
     {
       icon: "fas fa-chalkboard-teacher",
       type: "lecturer",
-      value: "dikit",
+      value: "15",
       label: "Dosen & Tenaga Pendidik"
     },
     {

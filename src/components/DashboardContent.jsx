@@ -1,23 +1,12 @@
 import React from 'react';
+import { beritaData } from '../data/beritaData';
+import { Link } from 'react-router-dom';
 
 const DashboardContent = () => {
-  const announcements = [
-    {
-      title: "G31DK",
-      date: "31 Oktober 2025",
-      content: "Ketidakpuasan terhadap dosen dengan inisial DK"
-    },
-    {
-      title: "Ingin menjadi Programmer handal namun enggan ngoding",
-      date: "10 Februari 2025",
-      content: "gak mau ngoding"
-    },
-    {
-      title: "anime is life",
-      date: "5 oktober 2024",
-      content: "mari kita jadikan anime sebagai gaya hidup kita"
-    }
-  ];
+  // Ambil 3 berita terbaru untuk dashboard
+  const latestAnnouncements = beritaData
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 3);
 
   const legendItems = [
     { color: "#2E8B57", label: "Angkatan 2025" },
@@ -52,19 +41,38 @@ const DashboardContent = () => {
 
       {/* Right Column - Announcements */}
       <div className="info-container">
-        <div className="section-title">
+        <div className="section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h2>Pengumuman Terbaru</h2>
+          <Link 
+            to="/berita" 
+            style={{ 
+              fontSize: '0.9rem', 
+              color: 'var(--primary)', 
+              textDecoration: 'none',
+              fontWeight: '500'
+            }}
+          >
+            Lihat Semua →
+          </Link>
         </div>
         <div className="announcement-list">
-          {announcements.map((announcement, index) => (
-            <div key={index} className="announcement-item">
+          {latestAnnouncements.map((announcement) => (
+            <div key={announcement.id} className="announcement-item">
               <div className="announcement-title">
                 <i className="fas fa-bullhorn"></i>
                 {announcement.title}
               </div>
               <div className="announcement-date">{announcement.date}</div>
               <div className="announcement-content">
-                {announcement.content}
+                {announcement.excerpt}
+              </div>
+              <div style={{ 
+                marginTop: '8px', 
+                fontSize: '0.8rem', 
+                color: 'var(--primary)',
+                fontWeight: '500'
+              }}>
+                {announcement.category}
               </div>
             </div>
           ))}
