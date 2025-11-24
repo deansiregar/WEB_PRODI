@@ -214,17 +214,28 @@ const achievements = [
               </div>
 
               {/* Status */}
-              <div style={{
-                display: 'inline-block',
-                backgroundColor: 'var(--primary)',
-                color: 'white',
-                padding: '8px 20px',
-                borderRadius: '20px',
-                fontSize: '0.9rem',
-                fontWeight: 'bold'
-              }}>
-                TERAKREDITASI
-              </div>
+<a 
+  href="/SERTIFIKAT_PRODI_ILMU_KOMPUTER.pdf"
+  download="SERTIFIKAT_AKREDITASI_ILMU_KOMPUTER_UNIMED.pdf"
+  style={{
+    display: 'inline-block',
+    backgroundColor: 'var(--primary)',
+    color: 'white',
+    padding: '8px 20px',
+    borderRadius: '20px',
+    fontSize: '0.9rem',
+    fontWeight: 'bold',
+    textDecoration: 'none',
+    cursor: 'pointer'
+  }}
+  onMouseEnter={(e) => {
+    e.target.style.backgroundColor = '#1e6b47'; // Warna lebih gelap saat hover
+  }}
+  onMouseLeave={(e) => {
+  e.target.style.backgroundColor = 'var(--primary)';
+}}
+>TERAKREDITASI
+</a>
             </div>
           </div>
 

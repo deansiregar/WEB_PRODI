@@ -1284,17 +1284,21 @@ html, body {
         justify-content: space-between;
     }
 
-    /* Mobile Dropdown */
+    /* Mobile Dropdown - DIPERBAIKI: Pastikan dropdown tidak menutupi navbar */
     .dropdown-menu {
         position: static !important;
         width: 100% !important;
         margin: 10px 0 !important;
         box-shadow: none !important;
-        background-color: rgba(255, 255, 255, 0.95) !important; /* Background solid */
+        background-color: rgba(255, 255, 255, 0.95) !important;
         padding: 15px !important;
         border-radius: 8px !important;
         border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        backdrop-filter: blur(10px); /* Efek blur modern */
+        backdrop-filter: blur(10px);
+        /* TAMBAHAN: Pastikan tidak ada overflow yang mengganggu */
+        overflow: visible !important;
+        max-height: none !important;
+        z-index: 1002 !important; /* Pastikan lebih tinggi dari nav-menu tapi tidak mengganggu */
     }
 
     .dropdown-link {
@@ -1304,6 +1308,8 @@ html, body {
         padding: 12px !important;
         border-radius: 6px !important;
         transition: all 0.3s ease !important;
+        position: relative !important;
+        z-index: 1 !important;
     }
     
     .dropdown-link:hover {
@@ -1316,7 +1322,7 @@ html, body {
         height: 36px !important;
         font-size: 1rem !important;
         margin-right: 12px !important;
-        background: rgba(255, 255, 255, 0.9) !important; /* Background icon solid */
+        background: rgba(255, 255, 255, 0.9) !important;
     }
 
     /* Warna khusus untuk icon di mobile */
@@ -1338,14 +1344,14 @@ html, body {
 
     .dropdown-link-content h4 {
         font-size: 0.95rem !important;
-        color: white !important; /* Teks putih untuk kontras */
+        color: white !important;
         font-weight: 600 !important;
         margin-bottom: 4px !important;
     }
 
     .dropdown-link-content p {
         font-size: 0.8rem !important;
-        color: rgba(255, 255, 255, 0.8) !important; /* Teks sedikit transparan */
+        color: rgba(255, 255, 255, 0.8) !important;
         margin: 0 !important;
         line-height: 1.3 !important;
     }
@@ -1359,6 +1365,31 @@ html, body {
     .dropdown-link-content p {
         font-size: 0.75rem;
         color: #e0e0e0 !important;
+    }
+
+    /* TAMBAHAN: Pastikan nav-menu memiliki z-index yang tepat */
+    .nav-menu {
+        z-index: 1001; /* Tetap di bawah dropdown */
+    }
+
+    /* TAMBAHAN: Atur tinggi maksimal untuk mencegah overflow */
+    .nav-menu.active {
+        right: 0;
+        /* Batasi tinggi maksimal dan beri overflow */
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+
+    /* TAMBAHAN: Container untuk dropdown yang lebih aman */
+    .nav-item.dropdown {
+        position: relative;
+        overflow: visible;
+    }
+
+    /* TAMBAHAN: Pastikan backdrop menutupi dengan benar */
+    .mobile-menu-backdrop.active {
+        display: block;
+        z-index: 999; /* Di bawah nav-menu tapi di atas konten lain */
     }
 
     /* Mobile Layout Adjustments */
@@ -1480,6 +1511,8 @@ html, body {
 
     .dropdown-menu {
         padding: 12px !important;
+        max-height: 60vh !important; /* Batasi tinggi di layar sangat kecil */
+        overflow-y: auto !important;
     }
 
     .dropdown-link {

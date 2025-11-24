@@ -162,15 +162,20 @@ const Navbar = () => {
               <i className={`fas fa-chevron-down dropdown-arrow ${showLinksDropdown ? 'rotated' : ''}`}></i>
             </div>
             
-            {/* Dropdown Menu - DITAMBAHKAN STYLE UNTUK MOBILE */}
+            {/* Dropdown Menu - DIPERBAIKI untuk mobile */}
             {showLinksDropdown && (
               <div 
                 className="dropdown-menu"
                 style={{
-                  // Tambahan style untuk memastikan tampilan konsisten
                   display: 'block',
                   opacity: 1,
-                  visibility: 'visible'
+                  visibility: 'visible',
+                  // Tambahan untuk memastikan tidak menutupi navbar di mobile
+                  ...(window.innerWidth <= 768 && {
+                    position: 'relative',
+                    marginTop: '10px',
+                    zIndex: '1002'
+                  })
                 }}
               >
                 {importantLinks.map((link, index) => (
@@ -185,7 +190,6 @@ const Navbar = () => {
                       closeMobileMenu();
                     }}
                     style={{
-                      // Style tambahan untuk konsistensi
                       display: 'flex',
                       alignItems: 'center',
                       textDecoration: 'none'
