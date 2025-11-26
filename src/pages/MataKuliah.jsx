@@ -1,6 +1,7 @@
 import React from 'react';
 
 const MataKuliah = () => {
+  const BASE = import.meta.env.BASE_URL;
   return (
     <div className="main-content">
       <div className="header">

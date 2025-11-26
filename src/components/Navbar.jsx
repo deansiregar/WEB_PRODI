@@ -115,7 +115,7 @@ const Navbar = () => {
         <div className="logo-container">
           <Link to="/" onClick={closeMobileMenu} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
             <div className="logo">
-              <img src="/logo.png" alt="logo mipa unimed" />
+              <img src={`${BASE}logo.png`}alt="logo mipa unimed" />
             </div>
             <div className="logo-text">
               <h2>Ilmu Komputer</h2>

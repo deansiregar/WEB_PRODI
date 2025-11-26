@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { beritaData } from '../data/beritaData';
 
 const Berita = () => {
+  const BASE = import.meta.env.BASE_URL;
   const [selectedCategory, setSelectedCategory] = useState('Semua');
   const [searchTerm, setSearchTerm] = useState('');
 

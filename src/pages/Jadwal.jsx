@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const Jadwal = () => {
+  const BASE = import.meta.env.BASE_URL;
   // State untuk filter
   const [selectedBlock, setSelectedBlock] = useState('BLOK I');
   const [selectedSemester, setSelectedSemester] = useState('SEMESTER 1');
