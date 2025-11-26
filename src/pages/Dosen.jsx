@@ -1,9 +1,6 @@
 import React from 'react';
 
 const Dosen = () => {
-  // 1. Variabel BASE untuk mendeteksi apakah sedang di Localhost atau GitHub Pages
-  const BASE = import.meta.env.BASE_URL;
-
   // Data Dosen Lengkap
   const lecturers = [
     {
@@ -18,7 +15,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6011957",
       pubLink: "https://scholar.google.com/citations?user=GK5EHLYAAAAJ&hl=en&oi=ao",
-      image: `${BASE}hermawan.jpg` // Menggunakan BASE
+      image: "/hermawan.jpg"
     },
     {
       name: "Said Iskandar Al Idrus, S.Si., M.Si.",
@@ -31,7 +28,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6016058",
       pubLink: "https://scholar.google.com/citations?user=1VgpJpIAAAAJ&hl=en",
-      image: `${BASE}said.jpg` // Menggunakan BASE
+      image: "/said.jpg"
     },
     {
       name: "Zulfahmi Indra, S.Si., M.Cs.",
@@ -44,7 +41,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6026820",
       pubLink: "https://scholar.google.com/citations?user=c2BJ__cAAAAJ&hl=en&oi=ao",
-      image: `${BASE}zulfahmi.jpg` // Menggunakan BASE
+      image: "/zulfahmi.jpg"
     },
     {
       name: "Dr. Arnita, M.Si.",
@@ -58,7 +55,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6101062",
       pubLink: "https://scholar.google.com/citations?user=ih0EgWYAAAAJ&hl=en&oi=ao",
-      image: `${BASE}arnita.jpg` // Menggunakan BASE
+      image: "/arnita.jpg"
     },
     {
       name: "Yulita Molliq Rangkuti, S.Si., M.Sc., Ph.D.",
@@ -72,7 +69,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6007066",
       pubLink: "https://scholar.google.com/citations?user=Q6qWe3kAAAAJ&hl=en&oi=ao",
-      image: `${BASE}yulita.jpg` // Menggunakan BASE
+      image: "yulita.jpg"
     },
     {
       name: "Kana Saputra S, S.Pd., M.Kom.",
@@ -85,7 +82,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/5980636",
       pubLink: "https://scholar.google.com/citations?user=IDcIUS4AAAAJ&hl=en&oi=ao",
-      image: `${BASE}kana.jpg` // Menggunakan BASE
+      image: "/kana.jpg"
     },
     {
       name: "Insan Taufik, M.Kom.",
@@ -98,7 +95,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6732760",
       pubLink: "https://scholar.google.com/citations?user=5gvslm0AAAAJ&hl=en&oi=ao",
-      image: `${BASE}insan.jpg` // Menggunakan BASE
+      image: "/insan.jpg"
     },
     {
       name: "Debi Yandra Niska, M.Kom",
@@ -111,7 +108,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6162023",
       pubLink: "https://scholar.google.com/citations?user=fm-UV-0AAAAJ&hl=en&oi=ao",
-      image: `${BASE}sui.jpg` // Menggunakan BASE
+      image: "/sui.jpg"
     },
     {
       name: "Dr. Eng. Mansur As",
@@ -125,7 +122,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6774720",
       pubLink: "https://scholar.google.com/citations?user=1jPsRKAAAAAJ&hl=en&oi=ao",
-      image: `${BASE}mansur.jpg` // Menggunakan BASE
+      image: "/mansur.jpg"
     },
     {
       name: "Putri Harliana, S.T., M.Kom",
@@ -138,7 +135,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6002359",
       pubLink: "https://scholar.google.com/citations?user=CG7og2UAAAAJ&hl=en&oi=ao",
-      image: `${BASE}putri.jpg` // Menggunakan BASE
+      image: "putri.jpg"
     },
     {
       name: "Fanny Ramadhani, S.Kom., M.Kom",
@@ -151,7 +148,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6752703",
       pubLink: "https://scholar.google.com/citations?hl=en&view_op=list_works&authuser=4&gmla=AJsN-F7BQzVynZA5WvF2t3RQpONZoiwkZJaF6JjkbTZu3AfEZq4DbN323OLnLvTMf9X5zW_DCe24tzz96YkKSLyK9QkXllsL-Q&user=xv03R9cAAAAJ",
-      image: `${BASE}fanny.jpg` // Menggunakan BASE
+      image: "/fanny.jpg"
     },
     {
       name: "Adidtya Perdana, S.T., M.Kom",
@@ -164,7 +161,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/5979680",
       pubLink: "https://scholar.google.com/citations?user=kQKIiT0AAAAJ&hl=id&authuser=1",
-      image: `${BASE}adidtya.jpg` // Menggunakan BASE
+      image: "/adidtya.jpg"
     },
     {
       name: "Sri Dewi, S.Kom., M.Kom",
@@ -177,7 +174,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6835736",
       pubLink: "https://scholar.google.com/citations?user=XwHiyxgAAAAJ&hl=en",
-      image: `${BASE}dewi.jpg` // Menggunakan BASE
+      image: "/dewi.jpg"
     },
     {
       name: "Dedy Kiswanto S.Kom., M.Kom",
@@ -190,7 +187,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6828715",
       pubLink: "https://scholar.google.com/citations?user=_SKa-k0AAAAJ&hl=en&oi=ao",
-      image: `${BASE}dedi.jpg` // Menggunakan BASE
+      image: "/dedi.jpg"
     },
     {
       name: "Ichwanul Muslim Karo Karo, S.Kom, M.Kom",
@@ -203,7 +200,7 @@ const Dosen = () => {
       ],
       sintaLink: "https://sinta.kemdikbud.go.id/authors/profile/6731973",
       pubLink: "https://scholar.google.co.id/citations?user=LPPLLhMAAAAJ&hl=id",
-      image: `${BASE}iwan.jpg` // Menggunakan BASE
+      image: "/iwan.jpg"
     }
   ];
 
@@ -300,7 +297,7 @@ const Dosen = () => {
                    </div>
                 </div>
 
-                {/* Tombol Link */}
+                {/* Tombol Link (Akan selalu di bawah karena marginTop: 'auto' pada container flex ini tidak diperlukan jika pembungkus di atasnya flex: 1) */}
                 <div style={{ display: 'flex', gap: '10px', marginTop: 'auto' }}>
                   <a 
                     href={dosen.sintaLink} 

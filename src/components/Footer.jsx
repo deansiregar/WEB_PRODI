@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-logo-section">
           <div className="footer-logo">
-            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="logo unimed" />
+            <img src="logo.png" alt="logo unimed" />
           </div>
           <div className="footer-logo-text">
             <h2>Ilmu Komputer</h2>

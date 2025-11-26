@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
 const Carousel = () => {
-  const BASE = import.meta.env.BASE_URL;
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
     {
-      image: `${BASE}slide1.jpg`,
+      image: 'slide1.png',
       title: 'ILMU KOMPUTER',
       description: 'Program Studi Unggul di Bidang Artificial Intelligence'
     },
     {
-      image: `${BASE}slide2.jpg`,
+      image: 'slide2.png',
       title: 'ILMU KOMPUTER',
       description: 'Menyiapkan Mahasiswa untuk Menjadi Programmer Handal'
     },
     {
-      image: `${BASE}slide3.jpg`,
+      image: 'slide3.png',
       title: 'ILMU KOMPUTER',
       description: 'Fasilitas Laboratorium yang Modern dan Lengkap'
     }

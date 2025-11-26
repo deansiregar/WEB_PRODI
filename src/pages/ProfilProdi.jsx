@@ -1,7 +1,6 @@
 import React from 'react';
 
 const ProfilProdi = () => {
-  const BASE = import.meta.env.BASE_URL;
   // Data prospek karir sesuai permintaan
   const careerProspects = [
     {
