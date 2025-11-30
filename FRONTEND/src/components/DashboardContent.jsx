@@ -1,12 +1,23 @@
-import React from 'react';
-import { beritaData } from '../data/beritaData';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios'; // Import axios
 
 const DashboardContent = () => {
-  // Ambil 3 berita terbaru untuk dashboard
-  const latestAnnouncements = beritaData
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 3);
+  const [announcements, setAnnouncements] = useState([]);
+
+  useEffect(() => {
+    const fetchAnnouncements = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/berita');
+        // Ambil 3 berita terbaru saja
+        const sortedData = res.data.slice(0, 3);
+        setAnnouncements(sortedData);
+      } catch (err) {
+        console.error("Gagal ambil pengumuman dashboard", err);
+      }
+    };
+    fetchAnnouncements();
+  }, []);
 
   const legendItems = [
     { color: "#2E8B57", label: "Angkatan 2025" },
@@ -16,6 +27,16 @@ const DashboardContent = () => {
     { color: "#90EE90", label: "Angkatan 2021" },
     { color: "#98FB98", label: "Angkatan 2020" }
   ];
+
+  // Fungsi klik Link
+  const handleLinkClick = (link) => {
+    if (link) {
+      window.open(link, '_blank'); // Buka di tab baru
+    } else {
+      // Jika tidak ada link, arahkan ke halaman detail berita (opsional) atau alert
+      // window.location.href = '/berita'; 
+    }
+  };
 
   return (
     <div className="dashboard-content">
@@ -39,43 +60,57 @@ const DashboardContent = () => {
         </div>
       </div>
 
-      {/* Right Column - Announcements */}
+      {/* Right Column - Announcements (DARI API) */}
       <div className="info-container">
         <div className="section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h2>Pengumuman Terbaru</h2>
           <Link 
             to="/berita" 
-            style={{ 
-              fontSize: '0.9rem', 
-              color: 'var(--primary)', 
-              textDecoration: 'none',
-              fontWeight: '500'
-            }}
+            style={{ fontSize: '0.9rem', color: 'var(--primary)', textDecoration: 'none', fontWeight: '500' }}
           >
             Lihat Semua →
           </Link>
         </div>
+        
         <div className="announcement-list">
-          {latestAnnouncements.map((announcement) => (
-            <div key={announcement.id} className="announcement-item">
-              <div className="announcement-title">
-                <i className="fas fa-bullhorn"></i>
-                {announcement.title}
+          {announcements.length === 0 ? (
+            <p style={{color: '#888', fontStyle: 'italic'}}>Belum ada pengumuman.</p>
+          ) : (
+            announcements.map((announcement) => (
+              <div key={announcement._id} className="announcement-item">
+                <div className="announcement-title">
+                  <i className="fas fa-bullhorn"></i>
+                  {announcement.title}
+                </div>
+                <div className="announcement-date">
+                    {new Date(announcement.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                </div>
+                <div className="announcement-content">
+                  {announcement.content.substring(0, 80)}...
+                </div>
+                
+                {/* Tombol Link / Kategori */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: '500' }}>
+                        {announcement.category}
+                    </span>
+                    
+                    {/* Jika ada link, munculkan tombol kecil */}
+                    {announcement.link && (
+                        <button 
+                            onClick={() => handleLinkClick(announcement.link)}
+                            style={{
+                                background: 'none', border: 'none', color: '#007bff', 
+                                cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold'
+                            }}
+                        >
+                            Buka Tautan <i className="fas fa-external-link-alt"></i>
+                        </button>
+                    )}
+                </div>
               </div>
-              <div className="announcement-date">{announcement.date}</div>
-              <div className="announcement-content">
-                {announcement.excerpt}
-              </div>
-              <div style={{ 
-                marginTop: '8px', 
-                fontSize: '0.8rem', 
-                color: 'var(--primary)',
-                fontWeight: '500'
-              }}>
-                {announcement.category}
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>

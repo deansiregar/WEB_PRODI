@@ -1,23 +1,51 @@
-import React, { useState } from 'react';
-import { beritaData } from '../data/beritaData';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Berita = () => {
+  const [beritaList, setBeritaList] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('Semua');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Kategori unik dari data berita
-  const categories = ['Semua', ...new Set(beritaData.map(berita => berita.category))];
+  // 1. AMBIL DATA DARI SERVER (BACKEND)
+  useEffect(() => {
+    const fetchBerita = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/berita');
+        setBeritaList(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Gagal mengambil berita:", error);
+        setLoading(false);
+      }
+    };
 
-  // Filter berita berdasarkan kategori dan pencarian
-  const filteredBerita = beritaData.filter(berita => {
+    fetchBerita();
+  }, []);
+
+  // Helper untuk URL Gambar
+  const getImageUrl = (imgName) => {
+    if (!imgName) return 'https://via.placeholder.com/400x250?text=No+Image'; // Gambar default
+    // Jika gambar adalah link eksternal (https://...) biarkan, jika nama file lokal, tambahkan URL backend
+    return imgName.startsWith('http') ? imgName : `http://localhost:5000/uploads/${imgName}`;
+  };
+
+  // Kategori unik dari data berita yang ada
+  const categories = ['Semua', ...new Set(beritaList.map(berita => berita.category))];
+
+  // Filter berita
+  const filteredBerita = beritaList.filter(berita => {
     const matchesCategory = selectedCategory === 'Semua' || berita.category === selectedCategory;
     const matchesSearch = berita.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          berita.content.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
-  // Berita featured (untuk highlight)
-  const featuredBerita = beritaData.filter(berita => berita.featured);
+  const featuredBerita = beritaList.filter(berita => berita.featured);
+
+  if (loading) {
+    return <div className="main-content" style={{textAlign: 'center', padding: '50px'}}>Loading Berita...</div>;
+  }
 
   return (
     <div className="main-content">
@@ -28,280 +56,147 @@ const Berita = () => {
         </p>
       </div>
 
-      {/* Featured Berita */}
+      {/* Featured Berita Section */}
       {featuredBerita.length > 0 && (
         <div className="content-section" style={{ padding: '0', overflow: 'hidden' }}>
-          <div style={{
-            backgroundColor: 'var(--primary)',
-            color: 'white',
-            padding: '20px',
-            textAlign: 'center'
-          }}>
+          <div style={{ backgroundColor: 'var(--primary)', color: 'white', padding: '20px', textAlign: 'center' }}>
             <h2 style={{ margin: 0, fontSize: '1.5rem' }}>
               <i className="fas fa-star" style={{ marginRight: '10px' }}></i>
               Berita Utama
             </h2>
           </div>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '0'
-          }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '0' }}>
             {featuredBerita.map(berita => (
-              <div key={berita.id} style={{
-                padding: '25px',
-                borderRight: '1px solid #eee',
-                borderBottom: '1px solid #eee',
-                transition: 'all 0.3s ease'
-              }} className="featured-news-item">
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  marginBottom: '15px'
-                }}>
-                  <span style={{
-                    backgroundColor: 'var(--accent)',
-                    color: 'var(--dark)',
-                    padding: '4px 12px',
-                    borderRadius: '15px',
-                    fontSize: '0.8rem',
-                    fontWeight: 'bold'
-                  }}>
+              <div key={berita._id} style={{ padding: '25px', borderRight: '1px solid #eee', borderBottom: '1px solid #eee' }} className="featured-news-item">
+                <img 
+                  src={getImageUrl(berita.image)} 
+                  alt={berita.title} 
+                  style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '8px', marginBottom: '15px' }} 
+                />
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                  <span style={{ backgroundColor: '#FFD700', color: '#333', padding: '4px 12px', borderRadius: '15px', fontSize: '0.8rem', fontWeight: 'bold' }}>
                     {berita.category}
                   </span>
-                  <span style={{
-                    marginLeft: '10px',
-                    color: 'var(--gray)',
-                    fontSize: '0.9rem'
-                  }}>
-                    {berita.date}
+                  <span style={{ marginLeft: '10px', color: '#666', fontSize: '0.9rem' }}>
+                    {new Date(berita.date).toLocaleDateString()}
                   </span>
                 </div>
-                <h3 style={{
-                  color: 'var(--dark)',
-                  marginBottom: '10px',
-                  fontSize: '1.3rem',
-                  lineHeight: '1.4'
-                }}>
-                  {berita.title}
-                </h3>
-                <p style={{
-                  color: 'var(--gray)',
-                  lineHeight: '1.6',
-                  marginBottom: '15px'
-                }}>
-                  {berita.excerpt}
+                <h3 style={{ color: '#333', marginBottom: '10px', fontSize: '1.3rem' }}>{berita.title}</h3>
+                <p style={{ color: '#666', lineHeight: '1.6', marginBottom: '15px' }}>
+                  {berita.content.substring(0, 100)}...
                 </p>
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}>
-                  <span style={{
-                    color: 'var(--primary)',
-                    fontSize: '0.9rem',
-                    fontWeight: '500'
-                  }}>
-                    {berita.author}
-                  </span>
-                  <button style={{
-                    padding: '8px 16px',
-                    backgroundColor: 'transparent',
-                    color: 'var(--primary)',
-                    border: '1px solid var(--primary)',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    fontSize: '0.9rem',
-                    transition: 'all 0.3s ease'
-                  }}>
-                    Baca Selengkapnya
+                
+                {/* LOGIKA TOMBOL LINK UNTUK FEATURED */}
+                {berita.link ? (
+                  <a 
+                    href={berita.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      display: 'inline-block',
+                      color: 'var(--primary)', 
+                      background: 'none', 
+                      border: '1px solid var(--primary)', 
+                      padding: '8px 16px', 
+                      borderRadius: '4px', 
+                      cursor: 'pointer',
+                      textDecoration: 'none',
+                      fontWeight: '500'
+                    }}
+                  >
+                    Baca Selengkapnya <i className="fas fa-external-link-alt" style={{ marginLeft: '5px' }}></i>
+                  </a>
+                ) : (
+                  <button disabled style={{ color: '#999', background: '#f5f5f5', border: '1px solid #ddd', padding: '8px 16px', borderRadius: '4px', cursor: 'not-allowed' }}>
+                    Info Lengkap
                   </button>
-                </div>
+                )}
+                
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* Filter dan Pencarian */}
+      {/* Filter & List Berita Section */}
       <div className="content-section">
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr auto',
-          gap: '20px',
-          alignItems: 'end',
-          marginBottom: '30px'
-        }}>
-          <div>
-            <label style={{
-              display: 'block',
-              marginBottom: '8px',
-              fontWeight: '600',
-              color: 'var(--dark)'
-            }}>
-              Cari Berita
-            </label>
-            <input
-              type="text"
-              placeholder="Ketik judul atau isi berita..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '12px 16px',
-                border: '1px solid #ddd',
-                borderRadius: '6px',
-                fontSize: '1rem',
-                transition: 'border-color 0.3s'
-              }}
-            />
-          </div>
-          <div>
-            <label style={{
-              display: 'block',
-              marginBottom: '8px',
-              fontWeight: '600',
-              color: 'var(--dark)'
-            }}>
-              Filter Kategori
-            </label>
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              style={{
-                padding: '12px 16px',
-                border: '1px solid #ddd',
-                borderRadius: '6px',
-                fontSize: '1rem',
-                minWidth: '150px',
-                cursor: 'pointer'
-              }}
-            >
-              {categories.map(category => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div style={{ display: 'flex', gap: '15px', marginBottom: '30px', flexWrap: 'wrap' }}>
+          <input
+            type="text"
+            placeholder="Cari Berita..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ flex: 1, padding: '10px', borderRadius: '6px', border: '1px solid #ddd', minWidth: '200px' }}
+          />
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ddd', minWidth: '150px' }}
+          >
+            {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+          </select>
         </div>
 
-        {/* Daftar Berita */}
-        <div style={{
-          display: 'grid',
-          gap: '20px'
-        }}>
+        <div style={{ display: 'grid', gap: '20px' }}>
           {filteredBerita.map(berita => (
-            <div key={berita.id} style={{
-              backgroundColor: 'white',
-              borderRadius: '8px',
-              padding: '25px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-              borderLeft: '4px solid var(--primary)',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              cursor: 'pointer'
-            }} className="news-item">
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start',
-                marginBottom: '15px'
-              }}>
-                <div>
-                  <span style={{
-                    backgroundColor: 'var(--primary)',
-                    color: 'white',
-                    padding: '4px 12px',
-                    borderRadius: '15px',
-                    fontSize: '0.8rem',
-                    fontWeight: 'bold',
-                    marginRight: '10px'
-                  }}>
-                    {berita.category}
-                  </span>
-                  <span style={{
-                    color: 'var(--gray)',
-                    fontSize: '0.9rem'
-                  }}>
-                    <i className="far fa-calendar" style={{ marginRight: '5px' }}></i>
-                    {berita.date}
-                  </span>
-                </div>
-                {berita.featured && (
-                  <span style={{
-                    backgroundColor: 'var(--accent)',
-                    color: 'var(--dark)',
-                    padding: '4px 8px',
-                    borderRadius: '4px',
-                    fontSize: '0.7rem',
-                    fontWeight: 'bold'
-                  }}>
-                    <i className="fas fa-star" style={{ marginRight: '4px' }}></i>
-                    Featured
-                  </span>
-                )}
+            <div key={berita._id} style={{ display: 'flex', gap: '20px', backgroundColor: 'white', borderRadius: '8px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)', borderLeft: '4px solid var(--primary)' }} className="news-item">
+              
+              {/* Gambar Thumbnail */}
+              <div style={{ flexShrink: 0 }}>
+                 <img 
+                    src={getImageUrl(berita.image)} 
+                    alt={berita.title}
+                    style={{ width: '150px', height: '100px', objectFit: 'cover', borderRadius: '6px' }}
+                 />
               </div>
 
-              <h3 style={{
-                color: 'var(--dark)',
-                marginBottom: '12px',
-                fontSize: '1.4rem',
-                lineHeight: '1.3'
-              }}>
-                {berita.title}
-              </h3>
-
-              <p style={{
-                color: 'var(--gray)',
-                lineHeight: '1.6',
-                marginBottom: '15px',
-                fontSize: '1rem'
-              }}>
-                {berita.content}
-              </p>
-
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingTop: '15px',
-                borderTop: '1px solid #eee'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  color: 'var(--primary)',
-                  fontSize: '0.9rem'
-                }}>
-                  <i className="fas fa-user" style={{ marginRight: '8px' }}></i>
-                  {berita.author}
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+                  <div>
+                    <span style={{ backgroundColor: '#e8f5e9', color: 'var(--primary)', padding: '4px 10px', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 'bold', marginRight: '10px' }}>
+                      {berita.category}
+                    </span>
+                    <span style={{ color: '#888', fontSize: '0.85rem' }}>
+                      <i className="far fa-calendar" style={{ marginRight: '5px' }}></i>
+                      {new Date(berita.date).toLocaleDateString()}
+                    </span>
+                  </div>
                 </div>
-                <button style={{
-                  padding: '8px 20px',
-                  backgroundColor: 'var(--primary)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                  fontSize: '0.9rem',
-                  fontWeight: '500',
-                  transition: 'background-color 0.3s ease'
-                }}>
-                  Baca Selengkapnya
-                </button>
+
+                <h3 style={{ color: '#2c3e50', marginBottom: '8px', fontSize: '1.2rem' }}>{berita.title}</h3>
+                <p style={{ color: '#666', fontSize: '0.95rem', marginBottom: '15px' }}>
+                  {berita.content.substring(0, 150)}...
+                </p>
+                
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '10px', borderTop: '1px solid #f0f0f0'}}>
+                    <div style={{display: 'flex', alignItems: 'center', fontSize: '0.85rem', color: '#888'}}>
+                        <i className="fas fa-user" style={{ marginRight: '5px' }}></i> {berita.author || 'Admin'}
+                    </div>
+
+                    {/* LOGIKA TOMBOL LINK UNTUK LIST ITEM */}
+                    {berita.link ? (
+                      <a 
+                        href={berita.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.9rem', display: 'flex', alignItems: 'center' }}
+                      >
+                        Baca Selengkapnya <i className="fas fa-arrow-right" style={{ marginLeft: '5px' }}></i>
+                      </a>
+                    ) : (
+                      <span style={{ color: '#aaa', fontSize: '0.9rem', cursor: 'default' }}>
+                        Info Lengkap
+                      </span>
+                    )}
+                </div>
               </div>
             </div>
           ))}
         </div>
 
         {filteredBerita.length === 0 && (
-          <div style={{
-            textAlign: 'center',
-            padding: '40px',
-            color: 'var(--gray)'
-          }}>
-            <i className="fas fa-search" style={{ fontSize: '3rem', marginBottom: '16px' }}></i>
-            <p>Tidak ada berita yang sesuai dengan filter pencarian.</p>
+          <div style={{ textAlign: 'center', padding: '40px', color: '#888' }}>
+            <p>Tidak ada berita ditemukan.</p>
           </div>
         )}
       </div>
