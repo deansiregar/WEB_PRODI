@@ -1,17 +1,14 @@
 const router = require('express').Router();
 const Berita = require('../models/Berita');
 const multer = require('multer');
-const path = require('path');
-const auth = require('../middleware/authMiddleware'); // Panggil Satpam
+const auth = require('../middleware/authMiddleware');
 
-// Setup Upload Gambar
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, 'uploads/'),
-    filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
-});
-const upload = multer({ storage });
+// --- GANTI BAGIAN INI (Import dari config baru) ---
+const { storage } = require('../utils/cloudinaryConfig');
+const upload = multer({ storage }); 
+// --------------------------------------------------
 
-// PUBLIK: Bisa diakses siapa saja
+// GET BERITA
 router.get('/', async (req, res) => {
     try {
         const berita = await Berita.find().sort({ date: -1 });
@@ -19,21 +16,27 @@ router.get('/', async (req, res) => {
     } catch (err) { res.status(500).json(err); }
 });
 
-// PRIVATE: Harus Login (Ada middleware 'auth')
+// TAMBAH BERITA
 router.post('/', auth, upload.single('image'), async (req, res) => {
-    const { title, content, category, author, featured, link } = req.body;
-    const newBerita = new Berita({
-        ...req.body,
-        featured: req.body.featured === 'true',
-        image: req.file ? req.file.filename : null,
-        link: link
-    });
     try {
+        const { title, content, category, author, featured, link } = req.body;
+
+        // Di Cloudinary, path gambar ada di req.file.path (berupa URL lengkap)
+        const image = req.file ? req.file.path : null;
+
+        const newBerita = new Berita({
+            title, content, category, author, 
+            featured: featured === 'true',
+            link,
+            image: image // Simpan URL Cloudinary langsung
+        });
+
         const saved = await newBerita.save();
         res.status(201).json(saved);
     } catch (err) { res.status(500).json(err); }
 });
 
+// HAPUS BERITA
 router.delete('/:id', auth, async (req, res) => {
     try {
         await Berita.findByIdAndDelete(req.params.id);

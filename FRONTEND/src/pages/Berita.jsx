@@ -26,6 +26,7 @@ const Berita = () => {
   // Helper untuk URL Gambar
   const getImageUrl = (imgName) => {
     if (!imgName) return 'https://via.placeholder.com/400x250?text=No+Image'; // Gambar default
+    if (imgName.startsWith('http')) return imgName;
     // Jika gambar adalah link eksternal (https://...) biarkan, jika nama file lokal, tambahkan URL backend
     return imgName.startsWith('http') ? imgName : `https://apiwebprodi.vercel.app/uploads/${imgName}`;
   };

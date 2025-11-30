@@ -8,6 +8,7 @@ const Dosen = () => {
   useEffect(() => {
     const fetchDosen = async () => {
         try {
+            // Gunakan URL Backend Vercel Anda yang sudah live
             const res = await axios.get('https://apiwebprodi.vercel.app/api/dosen');
             setLecturers(res.data);
             setLoading(false);
@@ -19,9 +20,19 @@ const Dosen = () => {
     fetchDosen();
   }, []);
 
+  // --- FUNGSI PENTING: Perbaikan Logika Gambar ---
   const getImageUrl = (imgName) => {
+      // 1. Jika tidak ada nama gambar, pakai placeholder
       if (!imgName) return 'https://via.placeholder.com/150?text=No+Img';
-      return imgName.startsWith('http') ? imgName : `https://apiwebprodi.vercel.app/uploads/${imgName}`;
+      
+      // 2. Jika gambar dimulai dengan 'http' (Upload Baru via Cloudinary/Link Luar)
+      // Maka gunakan link tersebut apa adanya.
+      if (imgName.startsWith('http')) return imgName;
+      
+      // 3. Jika gambar hanya nama file (misal 'hermawan.jpg' dari Data Lama/Seed)
+      // Maka asumsikan file ini ada di folder 'public' Frontend.
+      // Kita cukup menambahkan '/' di depannya.
+      return `/${imgName}`;
   };
 
   if (loading) return <div className="main-content" style={{textAlign: 'center', padding: '50px'}}>Loading Data Dosen...</div>;
@@ -35,7 +46,7 @@ const Dosen = () => {
       <div className="content-section" style={{ backgroundColor: 'transparent', boxShadow: 'none', padding: 0 }}>
         <div style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
+          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', 
           gap: '24px' 
         }}>
           {lecturers.map((dosen) => (
@@ -62,6 +73,8 @@ const Dosen = () => {
                     width: '80px', height: '80px', borderRadius: '50%', border: '4px solid white', 
                     objectFit: 'cover', backgroundColor: '#f0f0f0', boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
                   }} 
+                  // Fallback jika gambar benar-benar hilang/error
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/150?text=N/A'; }}
                 />
                 <h3 style={{ fontSize: '1.1rem', margin: '10px 0 5px', color: 'var(--dark)' }}>{dosen.name}</h3>
                 <span style={{ 
@@ -84,9 +97,10 @@ const Dosen = () => {
                    <div style={{ marginBottom: '10px' }}>
                       <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '4px' }}><strong>Pendidikan:</strong></p>
                       <ul style={{ paddingLeft: '20px', margin: 0, fontSize: '0.9rem', color: '#555' }}>
-                        {dosen.education && dosen.education.map((edu, idx) => (
+                        {/* Menangani jika education berupa array atau string */}
+                        {Array.isArray(dosen.education) ? dosen.education.map((edu, idx) => (
                           <li key={idx}>{edu}</li>
-                        ))}
+                        )) : <li>{dosen.education}</li>}
                       </ul>
                    </div>
                    
