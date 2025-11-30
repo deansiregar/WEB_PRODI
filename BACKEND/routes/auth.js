@@ -4,27 +4,27 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 // REGISTER (Ini rute yang Anda panggil)
-router.post('/register', async (req, res) => {
-    try {
-        // Cek apakah username/password dikirim
-        if (!req.body.username || !req.body.password) {
-            return res.status(400).json("Username dan Password wajib diisi!");
-        }
+// router.post('/register', async (req, res) => {
+//     try {
+//         // Cek apakah username/password dikirim
+//         if (!req.body.username || !req.body.password) {
+//             return res.status(400).json("Username dan Password wajib diisi!");
+//         }
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+//         const salt = await bcrypt.genSalt(10);
+//         const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-        const newUser = new User({
-            username: req.body.username,
-            password: hashedPassword
-        });
-        const user = await newUser.save();
-        res.status(200).json(user);
-    } catch (err) {
-        console.log(err); // Agar error tampil di terminal jika ada
-        res.status(500).json(err);
-    }
-});
+//         const newUser = new User({
+//             username: req.body.username,
+//             password: hashedPassword
+//         });
+//         const user = await newUser.save();
+//         res.status(200).json(user);
+//     } catch (err) {
+//         console.log(err); // Agar error tampil di terminal jika ada
+//         res.status(500).json(err);
+//     }
+// });
 
 // LOGIN
 router.post('/login', async (req, res) => {
