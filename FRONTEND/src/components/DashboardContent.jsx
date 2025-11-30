@@ -8,7 +8,7 @@ const DashboardContent = () => {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/berita');
+        const res = await axios.get('https://apiwebprodi.vercel.app/api/berita');
         // Ambil 3 berita terbaru saja
         const sortedData = res.data.slice(0, 3);
         setAnnouncements(sortedData);

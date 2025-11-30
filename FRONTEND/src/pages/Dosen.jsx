@@ -8,7 +8,7 @@ const Dosen = () => {
   useEffect(() => {
     const fetchDosen = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/dosen');
+            const res = await axios.get('https://apiwebprodi.vercel.app/api/dosen');
             setLecturers(res.data);
             setLoading(false);
         } catch (err) {
@@ -21,7 +21,7 @@ const Dosen = () => {
 
   const getImageUrl = (imgName) => {
       if (!imgName) return 'https://via.placeholder.com/150?text=No+Img';
-      return imgName.startsWith('http') ? imgName : `http://localhost:5000/uploads/${imgName}`;
+      return imgName.startsWith('http') ? imgName : `https://apiwebprodi.vercel.app/uploads/${imgName}`;
   };
 
   if (loading) return <div className="main-content" style={{textAlign: 'center', padding: '50px'}}>Loading Data Dosen...</div>;

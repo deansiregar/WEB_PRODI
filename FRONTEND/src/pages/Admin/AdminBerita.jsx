@@ -21,7 +21,7 @@ const AdminBerita = () => {
     // Ambil data berita dari backend
     const fetchBerita = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/berita');
+            const res = await axios.get('https://apiwebprodi.vercel.app/api/berita');
             setBeritaList(res.data);
         } catch (err) { console.error(err); }
     };
@@ -42,7 +42,7 @@ const AdminBerita = () => {
         
 
         try {
-            await axios.post('http://localhost:5000/api/berita', data, getAuthHeader());
+            await axios.post('https://apiwebprodi.vercel.app/api/berita', data, getAuthHeader());
             alert('Berita Berhasil Ditambahkan!');
             setFormData({ title: '', content: '', category: 'Berita', author: 'Admin', featured: false, image: null, link: '' });
             fetchBerita(); // Refresh daftar berita
@@ -60,7 +60,7 @@ const AdminBerita = () => {
     const handleDelete = async (id) => {
         if (!window.confirm("Yakin hapus berita ini?")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/berita/${id}`, {
+            await axios.delete(`https://apiwebprodi.vercel.app/api/berita/${id}`, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             fetchBerita();

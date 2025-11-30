@@ -16,7 +16,7 @@ const AdminMataKuliah = () => {
     // Ambil Data
     const fetchMatkul = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/matakuliah');
+            const res = await axios.get('https://apiwebprodi.vercel.app/api/matakuliah');
             setMatkulList(res.data);
         } catch (err) { console.error(err); }
     };
@@ -30,7 +30,7 @@ const AdminMataKuliah = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/matakuliah', formData, getAuthHeader());
+            await axios.post('https://apiwebprodi.vercel.app/api/matakuliah', formData, getAuthHeader());
             alert('Mata Kuliah Berhasil Disimpan!');
             setFormData({ kode: '', nama: '', sks: '', semester: '', jenis: 'Wajib' }); // Reset form
             fetchMatkul(); // Refresh tabel
@@ -42,7 +42,7 @@ const AdminMataKuliah = () => {
     const handleDelete = async (id) => {
         if (!window.confirm("Yakin hapus mata kuliah ini?")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/matakuliah/${id}`, getAuthHeader());
+            await axios.delete(`https://apiwebprodi.vercel.app/api/matakuliah/${id}`, getAuthHeader());
             fetchMatkul();
         } catch (error) { console.error(error); }
     };

@@ -17,7 +17,7 @@ const AdminJadwal = () => {
 
     const fetchJadwal = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/jadwal');
+            const res = await axios.get('https://apiwebprodi.vercel.app/api/jadwal');
             setJadwalList(res.data);
         } catch (err) { console.error(err); }
     };
@@ -29,7 +29,7 @@ const AdminJadwal = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/jadwal', formData, getAuthHeader());
+            await axios.post('https://apiwebprodi.vercel.app/api/jadwal', formData, getAuthHeader());
             alert('Jadwal Berhasil Disimpan!');
             // Reset sebagian form saja agar mudah input berulang
             setFormData({ ...formData, jam: '', mataKuliah: '', dosen: '', ruangan: '' });
@@ -40,7 +40,7 @@ const AdminJadwal = () => {
     const handleDelete = async (id) => {
         if (!window.confirm("Yakin hapus?")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/jadwal/${id}`, getAuthHeader());
+            await axios.delete(`https://apiwebprodi.vercel.app/api/jadwal/${id}`, getAuthHeader());
             fetchJadwal();
         } catch (error) { console.error(error); }
     };

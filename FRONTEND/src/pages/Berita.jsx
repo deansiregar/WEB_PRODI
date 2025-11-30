@@ -11,7 +11,7 @@ const Berita = () => {
   useEffect(() => {
     const fetchBerita = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/berita');
+        const response = await axios.get('https://apiwebprodi.vercel.app/api/berita');
         setBeritaList(response.data);
         setLoading(false);
       } catch (error) {
@@ -27,7 +27,7 @@ const Berita = () => {
   const getImageUrl = (imgName) => {
     if (!imgName) return 'https://via.placeholder.com/400x250?text=No+Image'; // Gambar default
     // Jika gambar adalah link eksternal (https://...) biarkan, jika nama file lokal, tambahkan URL backend
-    return imgName.startsWith('http') ? imgName : `http://localhost:5000/uploads/${imgName}`;
+    return imgName.startsWith('http') ? imgName : `https://apiwebprodi.vercel.app/uploads/${imgName}`;
   };
 
   // Kategori unik dari data berita yang ada

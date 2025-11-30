@@ -19,7 +19,7 @@ const AdminDosen = () => {
 
     const fetchDosen = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/dosen');
+            const res = await axios.get('https://apiwebprodi.vercel.app/api/dosen');
             setDosenList(res.data);
         } catch (err) { console.error(err); }
     };
@@ -37,7 +37,7 @@ const AdminDosen = () => {
         Object.keys(formData).forEach(key => data.append(key, formData[key]));
 
         try {
-            await axios.post('http://localhost:5000/api/dosen', data, getAuthHeader());
+            await axios.post('https://apiwebprodi.vercel.app/api/dosen', data, getAuthHeader());
             alert('Data Dosen Berhasil Ditambahkan!');
             setFormData({ name: '', ttl: '', position: '', expertise: '', education: '', sintaLink: '', pubLink: '', image: null });
             fetchDosen();
@@ -50,7 +50,7 @@ const AdminDosen = () => {
     const handleDelete = async (id) => {
         if (!window.confirm("Yakin hapus data dosen ini?")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/dosen/${id}`, {
+            await axios.delete(`https://apiwebprodi.vercel.app/api/dosen/${id}`, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             fetchDosen();
@@ -94,7 +94,7 @@ const AdminDosen = () => {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '600px', overflowY: 'auto' }}>
                         {dosenList.map(item => (
                             <div key={item._id} style={{ border: '1px solid #ddd', padding: '10px', borderRadius: '8px', display: 'flex', alignItems: 'center', background: 'white' }}>
-                                <img src={item.image ? `http://localhost:5000/uploads/${item.image}` : 'https://via.placeholder.com/50'} alt={item.name} style={{width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', marginRight: '10px'}} />
+                                <img src={item.image ? `https://apiwebprodi.vercel.app/uploads/${item.image}` : 'https://via.placeholder.com/50'} alt={item.name} style={{width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', marginRight: '10px'}} />
                                 <div style={{flex: 1}}>
                                     <h4 style={{ margin: 0, fontSize: '0.95rem' }}>{item.name}</h4>
                                     <small style={{ color: '#666' }}>{item.position}</small>

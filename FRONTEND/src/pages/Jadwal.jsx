@@ -11,7 +11,7 @@ const Jadwal = () => {
   const [selectedClass, setSelectedClass] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/jadwal')
+    axios.get('https://apiwebprodi.vercel.app/api/jadwal')
       .then(res => {
         const rawData = res.data;
         

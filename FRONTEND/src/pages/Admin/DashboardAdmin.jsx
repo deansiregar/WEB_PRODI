@@ -16,10 +16,10 @@ const DashboardAdmin = () => {
             try {
                 // Ambil semua data sekaligus
                 const [resBerita, resDosen, resMatkul, resJadwal] = await Promise.all([
-                    axios.get('http://localhost:5000/api/berita'),
-                    axios.get('http://localhost:5000/api/dosen'),
-                    axios.get('http://localhost:5000/api/matakuliah'),
-                    axios.get('http://localhost:5000/api/jadwal')
+                    axios.get('https://apiwebprodi.vercel.app/api/berita'),
+                    axios.get('https://apiwebprodi.vercel.app/api/dosen'),
+                    axios.get('https://apiwebprodi.vercel.app/api/matakuliah'),
+                    axios.get('https://apiwebprodi.vercel.app/api/jadwal')
                 ]);
 
                 setStats({

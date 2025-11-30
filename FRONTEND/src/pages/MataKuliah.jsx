@@ -7,7 +7,7 @@ const MataKuliah = () => {
 
   useEffect(() => {
     // Ambil data dari Backend
-    axios.get('http://localhost:5000/api/matakuliah')
+    axios.get('https://apiwebprodi.vercel.app/api/matakuliah')
       .then(res => {
         setMatkulList(res.data);
         setLoading(false);
