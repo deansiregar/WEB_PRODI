@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
-import './styles/dashboard.css'
+import './styles/Dashboard.css'
 
 const container = document.getElementById('root')
 const root = createRoot(container)
