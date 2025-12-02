@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/AdminNavbar';
 
 const AdminJadwal = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [jadwalList, setJadwalList] = useState([]);
     const [formData, setFormData] = useState({
         blok: 'BLOK I', semester: 'SEMESTER 1', kelas: 'KELAS 25A',
@@ -26,17 +27,21 @@ const AdminJadwal = () => {
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true); // 2. Start
+
         try {
             await axios.post('https://apiwebprodi.vercel.app/api/jadwal', formData, getAuthHeader());
             alert('Jadwal Berhasil Disimpan!');
-            // Reset sebagian form saja agar mudah input berulang
             setFormData({ ...formData, jam: '', mataKuliah: '', dosen: '', ruangan: '' });
             fetchJadwal();
-        } catch (error) { alert('Gagal menyimpan data'); }
+        } catch (error) { 
+            alert('Gagal menyimpan data'); 
+        } finally {
+            setIsLoading(false); // 3. Stop
+        }
     };
-
     const handleDelete = async (id) => {
         if (!window.confirm("Yakin hapus?")) return;
         try {
@@ -80,7 +85,22 @@ const AdminJadwal = () => {
                         <input required type="text" name="dosen" placeholder="Kode Dosen (ex: SIA)" value={formData.dosen} onChange={handleChange} style={{padding: '8px'}} />
                         <input required type="text" name="ruangan" placeholder="Ruangan (ex: 77.1.01)" value={formData.ruangan} onChange={handleChange} style={{padding: '8px'}} />
 
-                        <button type="submit" style={{marginTop: '10px', padding: '10px', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold'}}>+ Simpan Jadwal</button>
+                       <button 
+            type="submit" 
+            disabled={isLoading}
+            style={{
+                marginTop: '10px', 
+                padding: '10px', 
+                background: isLoading ? '#ccc' : 'var(--primary)', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '4px', 
+                cursor: isLoading ? 'not-allowed' : 'pointer', 
+                fontWeight: 'bold'
+            }}
+        >
+            {isLoading ? 'Sedang Proses...' : '+ Simpan Jadwal'}
+        </button>
                     </form>
                 </div>
 

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/AdminNavbar';
 
 const AdminBerita = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [beritaList, setBeritaList] = useState([]);
     const [formData, setFormData] = useState({
         title: '', content: '', category: 'Berita', author: 'Admin', featured: false, image: null, link: ''
@@ -34,26 +35,27 @@ const AdminBerita = () => {
         else setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = new FormData();
-        // Masukkan semua data ke FormData agar bisa kirim file gambar
-        Object.keys(formData).forEach(key => data.append(key, formData[key]));
         
+        // 2. SET LOADING TRUE
+        setIsLoading(true);
+
+        const data = new FormData();
+        Object.keys(formData).forEach(key => data.append(key, formData[key]));
 
         try {
             await axios.post('https://apiwebprodi.vercel.app/api/berita', data, getAuthHeader());
             alert('Berita Berhasil Ditambahkan!');
             setFormData({ title: '', content: '', category: 'Berita', author: 'Admin', featured: false, image: null, link: '' });
-            fetchBerita(); // Refresh daftar berita
+            fetchBerita();
         } catch (error) {
             console.error(error);
-            if (error.response && error.response.status === 401) {
-                alert("Sesi habis, silakan login lagi.");
-                navigate('/login');
-            } else {
-                alert('Gagal: ' + (error.response?.data?.message || 'Terjadi kesalahan'));
-            }
+            // ... error handling
+            alert('Gagal: ' + (error.response?.data?.message || 'Terjadi kesalahan'));
+        } finally {
+            // 3. MATIKAN LOADING (Dijalankan baik sukses maupun gagal)
+            setIsLoading(false);
         }
     };
 
@@ -103,7 +105,22 @@ const AdminBerita = () => {
     onChange={handleChange} 
     style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }} 
 />
-                        <button type="submit" style={{ marginTop: '10px', padding: '10px', background: '#2E8B57', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>+ Simpan Berita</button>
+<button 
+            type="submit" 
+            disabled={isLoading} // Matikan tombol jika loading
+            style={{ 
+                marginTop: '10px', 
+                padding: '10px', 
+                background: isLoading ? '#ccc' : '#2E8B57', // Ubah warna jika loading
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '4px', 
+                cursor: isLoading ? 'not-allowed' : 'pointer', // Ubah kursor
+                fontWeight: 'bold' 
+            }}
+        >
+            {isLoading ? 'Sedang Menyimpan...' : '+ Simpan Berita'}
+        </button>
                     </form>
                 </div>
 

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/AdminNavbar';
 
 const AdminMataKuliah = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [matkulList, setMatkulList] = useState([]);
     const [formData, setFormData] = useState({ kode: '', nama: '', sks: '', semester: '', jenis: 'Wajib' });
     const navigate = useNavigate();
@@ -27,15 +28,19 @@ const AdminMataKuliah = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true); // 2. Start
+
         try {
             await axios.post('https://apiwebprodi.vercel.app/api/matakuliah', formData, getAuthHeader());
             alert('Mata Kuliah Berhasil Disimpan!');
-            setFormData({ kode: '', nama: '', sks: '', semester: '', jenis: 'Wajib' }); // Reset form
-            fetchMatkul(); // Refresh tabel
+            setFormData({ kode: '', nama: '', sks: '', semester: '', jenis: 'Wajib' });
+            fetchMatkul();
         } catch (error) {
             alert('Gagal menyimpan data');
+        } finally {
+            setIsLoading(false); // 3. Stop
         }
     };
 
@@ -73,7 +78,22 @@ const AdminMataKuliah = () => {
                             <option value="Pilihan">Pilihan</option>
                         </select>
 
-                        <button type="submit" style={{marginTop: '10px', padding: '10px', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold'}}>+ Simpan</button>
+                      <button 
+            type="submit" 
+            disabled={isLoading}
+            style={{
+                marginTop: '10px', 
+                padding: '10px', 
+                background: isLoading ? '#ccc' : 'var(--primary)', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '4px', 
+                cursor: isLoading ? 'not-allowed' : 'pointer', 
+                fontWeight: 'bold'
+            }}
+        >
+            {isLoading ? 'Menyimpan...' : '+ Simpan'}
+        </button>
                     </form>
                 </div>
 

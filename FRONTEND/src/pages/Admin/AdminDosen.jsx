@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../../components/AdminNavbar';
 
 const AdminDosen = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [dosenList, setDosenList] = useState([]);
     const [formData, setFormData] = useState({
         name: '', ttl: '', position: '', expertise: '', education: '', sintaLink: '', pubLink: '', image: null
@@ -31,8 +32,10 @@ const AdminDosen = () => {
         else setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true); // 2. Mulai Loading
+
         const data = new FormData();
         Object.keys(formData).forEach(key => data.append(key, formData[key]));
 
@@ -44,6 +47,8 @@ const AdminDosen = () => {
         } catch (error) {
             console.error(error);
             alert('Gagal menambahkan dosen');
+        } finally {
+            setIsLoading(false); // 3. Selesai Loading
         }
     };
 
@@ -84,7 +89,22 @@ const AdminDosen = () => {
                         <label style={{fontSize: '0.8rem', fontWeight: 'bold'}}>Foto Profil:</label>
                         <input type="file" name="image" onChange={handleChange} />
                         
-                        <button type="submit" style={{ marginTop: '10px', padding: '10px', background: '#2E8B57', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>+ Simpan Data</button>
+                       <button 
+            type="submit" 
+            disabled={isLoading}
+            style={{ 
+                marginTop: '10px', 
+                padding: '10px', 
+                background: isLoading ? '#95a5a6' : '#2E8B57', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '4px', 
+                cursor: isLoading ? 'not-allowed' : 'pointer', 
+                fontWeight: 'bold' 
+            }}
+        >
+            {isLoading ? <><i className="fas fa-spinner fa-spin"></i> Menyimpan...</> : '+ Simpan Data'}
+        </button>
                     </form>
                 </div>
 
