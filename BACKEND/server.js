@@ -12,10 +12,28 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // --- 2. KONEKSI DATABASE ---
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch(err => console.log("❌ MongoDB Error:", err));
+mongoose.connect(process.env.MONGO_URI, {
+  serverSelectionTimeoutMS: 30000,
+  socketTimeoutMS: 45000,
+})
+  .then(() => {
+    console.log("✅ MongoDB Connected");
+    console.log("📍 Database:", mongoose.connection.name);
+  })
+  .catch(err => {
+    console.error("❌ MongoDB Connection Error:");
+    console.error("Message:", err.message);
+    console.error("Code:", err.code);
+  });
 
+// Tambahan: Monitor connection events
+mongoose.connection.on('error', err => {
+  console.error('❌ MongoDB Runtime Error:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.warn('⚠️ MongoDB Disconnected');
+});
 // --- 3. IMPORT ROUTES (WAJIB DI ATAS APP.USE) ---
 const authRoutes = require('./routes/auth');
 const beritaRoutes = require('./routes/berita');
