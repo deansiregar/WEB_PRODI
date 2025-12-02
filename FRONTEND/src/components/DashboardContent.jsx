@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios'; // Import axios
+import axios from 'axios';
 
 const DashboardContent = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -9,7 +9,6 @@ const DashboardContent = () => {
     const fetchAnnouncements = async () => {
       try {
         const res = await axios.get('https://apiwebprodi.vercel.app/api/berita');
-        // Ambil 3 berita terbaru saja
         const sortedData = res.data.slice(0, 3);
         setAnnouncements(sortedData);
       } catch (err) {
@@ -19,22 +18,41 @@ const DashboardContent = () => {
     fetchAnnouncements();
   }, []);
 
-  const legendItems = [
-    { color: "#2E8B57", label: "Angkatan 2025" },
-    { color: "#3CB371", label: "Angkatan 2024" },
-    { color: "#228B22", label: "Angkatan 2023" },
-    { color: "#32CD32", label: "Angkatan 2022" },
-    { color: "#90EE90", label: "Angkatan 2021" },
-    { color: "#98FB98", label: "Angkatan 2020" }
+  // Data dummy untuk grafik statistik mahasiswa per angkatan
+  const studentStats = [
+    { year: '2025', count: 150, color: '#2E8B57' },
+    { year: '2024', count: 145, color: '#3CB371' },
+    { year: '2023', count: 140, color: '#228B22' },
+    { year: '2022', count: 135, color: '#32CD32' },
+    { year: '2021', count: 130, color: '#90EE90' },
+    { year: '2020', count: 125, color: '#98FB98' }
   ];
+
+  // KONTROL TINGGI BAR: Atur tinggi maksimal bar (dalam persen)
+  const MAX_BAR_HEIGHT_PERCENTAGE = 90; // Bar tertinggi akan mencapai 90% dari container
+  const BAR_HEIGHT_SCALING_FACTOR = 0.8; // Faktor scaling untuk membuat perbedaan lebih terlihat
+
+  // Hitung max count untuk scaling grafik
+  const maxCount = Math.max(...studentStats.map(item => item.count));
+  
+  // Fungsi untuk menghitung tinggi bar dengan kontrol lebih baik
+  const calculateBarHeight = (count) => {
+    // 1. Hitung persentase dasar
+    const basePercentage = (count / maxCount) * 100;
+    
+    // 2. Terapkan faktor scaling untuk memperbesar perbedaan
+    const scaledPercentage = basePercentage * BAR_HEIGHT_SCALING_FACTOR;
+    
+    // 3. Terapkan batas maksimal
+    const finalPercentage = Math.min(scaledPercentage, MAX_BAR_HEIGHT_PERCENTAGE);
+    
+    return finalPercentage;
+  };
 
   // Fungsi klik Link
   const handleLinkClick = (link) => {
     if (link) {
-      window.open(link, '_blank'); // Buka di tab baru
-    } else {
-      // Jika tidak ada link, arahkan ke halaman detail berita (opsional) atau alert
-      // window.location.href = '/berita'; 
+      window.open(link, '_blank');
     }
   };
 
@@ -44,23 +62,43 @@ const DashboardContent = () => {
       <div className="chart-container">
         <div className="section-title">
           <h2>Statistik Mahasiswa per Angkatan</h2>
-          <span style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>Tahun 2025</span>
         </div>
-        <div className="chart-placeholder">
-          <i className="fas fa-chart-bar" style={{ marginRight: '10px' }}></i>
-          Grafik Statistik Mahasiswa per Angkatan
-        </div>
-        <div className="chart-legend">
-          {legendItems.map((item, index) => (
-            <div key={index} className="legend-item">
-              <div className="legend-color" style={{ backgroundColor: item.color }}></div>
-              <span>{item.label}</span>
+        
+        {/* Bar Chart Dummy */}
+        <div className="bar-chart-container">
+
+          
+          <div className="bar-chart-main">
+            <div className="bar-chart-bars">
+              {studentStats.map((item) => {
+                const barHeight = calculateBarHeight(item.count);
+                return (
+                  <div key={item.year} className="bar-chart-item">
+                    <div className="bar-tooltip">
+                      Angkatan {item.year}: <strong>{item.count}</strong> mahasiswa
+                    </div>
+                    <div 
+                      className="bar-chart-bar" 
+                      style={{
+                        height: `${barHeight}%`,
+                        backgroundColor: item.color,
+                        '--bar-color': item.color
+                      }}
+                    >
+                      <div className="bar-value">{item.count}</div>
+                    </div>
+                    <div className="bar-label">{item.year}</div>
+                  </div>
+                );
+              })}
             </div>
-          ))}
+          </div>
         </div>
+        
+      
       </div>
 
-      {/* Right Column - Announcements (DARI API) */}
+      {/* Right Column - Announcements */}
       <div className="info-container">
         <div className="section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h2>Pengumuman Terbaru</h2>
@@ -83,30 +121,36 @@ const DashboardContent = () => {
                   {announcement.title}
                 </div>
                 <div className="announcement-date">
-                    {new Date(announcement.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  {new Date(announcement.date).toLocaleDateString('id-ID', { 
+                    day: 'numeric', 
+                    month: 'long', 
+                    year: 'numeric' 
+                  })}
                 </div>
                 <div className="announcement-content">
                   {announcement.content.substring(0, 80)}...
                 </div>
                 
-                {/* Tombol Link / Kategori */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
-                    <span style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: '500' }}>
-                        {announcement.category}
-                    </span>
-                    
-                    {/* Jika ada link, munculkan tombol kecil */}
-                    {announcement.link && (
-                        <button 
-                            onClick={() => handleLinkClick(announcement.link)}
-                            style={{
-                                background: 'none', border: 'none', color: '#007bff', 
-                                cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold'
-                            }}
-                        >
-                            Buka Tautan <i className="fas fa-external-link-alt"></i>
-                        </button>
-                    )}
+                  <span style={{ fontSize: '0.8rem', color: 'var(--primary)', fontWeight: '500' }}>
+                    {announcement.category}
+                  </span>
+                  
+                  {announcement.link && (
+                    <button 
+                      onClick={() => handleLinkClick(announcement.link)}
+                      style={{
+                        background: 'none', 
+                        border: 'none', 
+                        color: '#007bff', 
+                        cursor: 'pointer', 
+                        fontSize: '0.8rem', 
+                        fontWeight: 'bold'
+                      }}
+                    >
+                      Buka Tautan <i className="fas fa-external-link-alt"></i>
+                    </button>
+                  )}
                 </div>
               </div>
             ))

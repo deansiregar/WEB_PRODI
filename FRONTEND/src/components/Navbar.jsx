@@ -54,7 +54,7 @@ const Navbar = () => {
       url: "https://simantep.unimed.ac.id/",
       icon: "fas fa-tasks",
       title: "SIMANTEP",
-      description: "Sistem Manajemen Teaching Plan"
+      description: "Sistem Manajemen Administrasi Terpadu"
     },
     {
       url: "https://billing.unimed.ac.id/",
@@ -67,6 +67,12 @@ const Navbar = () => {
       icon: "fas fa-book",
       title: "E-LEARNING",
       description: "E-LEARNING Ilmu Komputer"
+    },
+    {
+      url: "https://simhaki.unimed.ac.id/",
+      icon: "fas fa-university", 
+      title: "SIMHAKI",
+      description: "Sistem Informasi Manajemen Hak Kekayaan Intelektual"
     }
   ];
 
@@ -162,7 +168,7 @@ const Navbar = () => {
               <i className={`fas fa-chevron-down dropdown-arrow ${showLinksDropdown ? 'rotated' : ''}`}></i>
             </div>
             
-            {/* Dropdown Menu - DIPERBAIKI untuk mobile */}
+            {/* Dropdown Menu - PERBAIKAN */}
             {showLinksDropdown && (
               <div 
                 className="dropdown-menu"
@@ -170,11 +176,15 @@ const Navbar = () => {
                   display: 'block',
                   opacity: 1,
                   visibility: 'visible',
-                  // Tambahan untuk memastikan tidak menutupi navbar di mobile
+                  // Tambahan untuk mobile responsiveness
                   ...(window.innerWidth <= 768 && {
                     position: 'relative',
                     marginTop: '10px',
-                    zIndex: '1002'
+                    width: '100%',
+                    maxWidth: '100%',
+                    zIndex: '1002',
+                    left: '0',
+                    right: '0'
                   })
                 }}
               >
@@ -192,15 +202,26 @@ const Navbar = () => {
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      textDecoration: 'none'
+                      textDecoration: 'none',
+                      overflow: 'hidden'
                     }}
                   >
                     <div className="dropdown-link-icon">
                       <i className={link.icon}></i>
                     </div>
-                    <div className="dropdown-link-content">
-                      <h4>{link.title}</h4>
-                      <p>{link.description}</p>
+                    <div className="dropdown-link-content" style={{ minWidth: 0, flex: 1 }}>
+                      <h4 style={{ 
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap'
+                      }}>{link.title}</h4>
+                      <p style={{ 
+                        fontSize: '0.8rem',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        marginTop: '2px'
+                      }}>{link.description}</p>
                     </div>
                   </a>
                 ))}

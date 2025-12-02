@@ -28,6 +28,9 @@ app.use('/api/berita', beritaRoutes);
 app.use('/api/dosen', dosenRoutes);
 app.use('/api/matakuliah', matakuliahRoutes);
 app.use('/api/jadwal', jadwalRoutes); //
+app.get('/', (req, res) => {
+    res.send("Backend API Web Prodi is Running...");
+});
 // --- 5. JALANKAN SERVER ---
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

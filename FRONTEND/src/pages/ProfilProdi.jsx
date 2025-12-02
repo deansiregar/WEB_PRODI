@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ProfilProdi = () => {
-  // Data prospek karir sesuai permintaan
+  // Data prospek karir
   const careerProspects = [
     {
       icon: 'fas fa-brain',
@@ -41,33 +41,33 @@ const ProfilProdi = () => {
   ];
 
   // Data prestasi horizontal
-const achievements = [
-  {
-    year: '2025',
-    title: 'Lorem Ipsum Dolor Sit',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.'
-  },
-  {
-    year: '2024',
-    title: 'Consectetur Adipiscing',
-    description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.'
-  },
-  {
-    year: '2023',
-    title: 'Sed Do Eiusmod Tempor',
-    description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.'
-  },
-  {
-    year: '2022',
-    title: 'Incididunt Ut Labore',
-    description: 'Incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.'
-  },
-  {
-    year: '2021',
-    title: 'Ut Enim Ad Minim',
-    description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.'
-  }
-];
+  const achievements = [
+    {
+      year: '2025',
+      title: 'Lorem Ipsum Dolor Sit',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.'
+    },
+    {
+      year: '2024',
+      title: 'Consectetur Adipiscing',
+      description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.'
+    },
+    {
+      year: '2023',
+      title: 'Sed Do Eiusmod Tempor',
+      description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.'
+    },
+    {
+      year: '2022',
+      title: 'Incididunt Ut Labore',
+      description: 'Incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.'
+    },
+    {
+      year: '2021',
+      title: 'Ut Enim Ad Minim',
+      description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.'
+    }
+  ];
 
   return (
     <div className="main-content">
@@ -78,10 +78,10 @@ const achievements = [
         </p>
       </div>
 
-      {/* Hero Section */}
+      {/* Akreditasi & Keunggulan (Bersampingan di desktop) */}
       <div className="content-section">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
-          {/* Akreditasi - DESAIN DIPERBAIKI */}
+        <div className="grid-section">
+          {/* Akreditasi */}
           <div>
             <h3 style={{ 
               color: 'var(--primary)', 
@@ -100,9 +100,9 @@ const achievements = [
               textAlign: 'center',
               boxShadow: '0 8px 20px rgba(46, 139, 87, 0.15)',
               position: 'relative',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              height: '100%'
             }}>
-              {/* Decorative elements */}
               <div style={{
                 position: 'absolute',
                 top: '-20px',
@@ -122,7 +122,6 @@ const achievements = [
                 borderRadius: '50%'
               }}></div>
 
-              {/* Badge */}
               <div style={{
                 width: '80px',
                 height: '80px',
@@ -139,7 +138,6 @@ const achievements = [
                 <i className="fas fa-star"></i>
               </div>
 
-              {/* Title */}
               <h3 style={{ 
                 color: 'var(--primary)', 
                 marginBottom: '15px',
@@ -149,7 +147,6 @@ const achievements = [
                 BAIK SEKALI
               </h3>
 
-              {/* Certificate Info */}
               <div style={{
                 backgroundColor: 'white',
                 padding: '20px',
@@ -213,29 +210,29 @@ const achievements = [
                 </div>
               </div>
 
-              {/* Status */}
-<a 
-  href="/SERTIFIKAT_PRODI_ILMU_KOMPUTER.pdf"
-  download="SERTIFIKAT_AKREDITASI_ILMU_KOMPUTER_UNIMED.pdf"
-  style={{
-    display: 'inline-block',
-    backgroundColor: 'var(--primary)',
-    color: 'white',
-    padding: '8px 20px',
-    borderRadius: '20px',
-    fontSize: '0.9rem',
-    fontWeight: 'bold',
-    textDecoration: 'none',
-    cursor: 'pointer'
-  }}
-  onMouseEnter={(e) => {
-    e.target.style.backgroundColor = '#1e6b47'; // Warna lebih gelap saat hover
-  }}
-  onMouseLeave={(e) => {
-  e.target.style.backgroundColor = 'var(--primary)';
-}}
->TERAKREDITASI
-</a>
+              <a 
+                href="/SERTIFIKAT_PRODI_ILMU_KOMPUTER.pdf"
+                download="SERTIFIKAT_AKREDITASI_ILMU_KOMPUTER_UNIMED.pdf"
+                style={{
+                  display: 'inline-block',
+                  backgroundColor: 'var(--primary)',
+                  color: 'white',
+                  padding: '8px 20px',
+                  borderRadius: '20px',
+                  fontSize: '0.9rem',
+                  fontWeight: 'bold',
+                  textDecoration: 'none',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#1e6b47';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'var(--primary)';
+                }}
+              >
+                TERAKREDITASI
+              </a>
             </div>
           </div>
 
@@ -277,9 +274,9 @@ const achievements = [
         </div>
       </div>
 
-      {/* Sejarah & Visi Misi */}
+      {/* Sejarah & Visi Misi (Bersampingan di desktop) */}
       <div className="content-section">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
+        <div className="grid-section">
           {/* Sejarah */}
           <div>
             <h3 style={{ 
@@ -291,7 +288,14 @@ const achievements = [
               <i className="fas fa-history" style={{ marginRight: '10px' }}></i>
               Sejarah Program Studi
             </h3>
-            <div style={{ lineHeight: '1.8' }}>
+            <div style={{ 
+              lineHeight: '1.8',
+              backgroundColor: 'white',
+              padding: '25px',
+              borderRadius: '8px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              height: '100%'
+            }}>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
                 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
@@ -320,9 +324,10 @@ const achievements = [
             </h3>
             <div style={{ 
               backgroundColor: 'rgba(46, 139, 87, 0.05)', 
-              padding: '20px',
+              padding: '25px',
               borderRadius: '8px',
-              borderLeft: '4px solid var(--primary)'
+              borderLeft: '4px solid var(--primary)',
+              height: '100%'
             }}>
               <h4 style={{ color: 'var(--primary)', marginBottom: '10px' }}>Visi:</h4>
               <p style={{ fontStyle: 'italic', marginBottom: '20px' }}>
@@ -343,9 +348,7 @@ const achievements = [
         </div>
       </div>
 
-
-
-      {/* Prospek Karir */}
+      {/* Prospek Karir (Full Width) */}
       <div className="content-section">
         <h3 style={{ 
           color: 'var(--primary)', 
@@ -413,7 +416,7 @@ const achievements = [
         </div>
       </div>
 
-      {/* Prestasi & Pencapaian - DESAIN HORIZONTAL */}
+      {/* Prestasi & Pencapaian (Full Width) */}
       <div className="content-section">
         <h3 style={{ 
           color: 'var(--primary)', 
@@ -482,9 +485,9 @@ const achievements = [
         </div>
       </div>
 
-      {/* Lokasi & Kontak */}
+      {/* Kontak & Lokasi (Bersampingan di desktop) */}
       <div className="content-section">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
+        <div className="grid-section">
           {/* Kontak */}
           <div>
             <h3 style={{ 
@@ -499,7 +502,8 @@ const achievements = [
             <div style={{ 
               backgroundColor: 'rgba(46, 139, 87, 0.05)', 
               padding: '25px',
-              borderRadius: '8px'
+              borderRadius: '8px',
+              height: '100%'
             }}>
               <div style={{ marginBottom: '15px' }}>
                 <strong>Program Studi Ilmu Komputer</strong><br/>
@@ -560,7 +564,6 @@ const achievements = [
                 flex: 1,
                 minHeight: '300px'
               }}>
-                {/* GANTI KODE INI DENGAN EMBED GOOGLE MAPS YANG ASLI */}
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d18645.301905230495!2d98.71030593647056!3d3.6037090599036246!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x303131714c40fccd%3A0x17660a6371985d8c!2sState%20University%20of%20Medan!5e0!3m2!1sid!2sid!4v1763966843366!5m2!1sid!2sid"
                   width="100%"

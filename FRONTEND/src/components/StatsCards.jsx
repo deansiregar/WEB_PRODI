@@ -5,7 +5,7 @@ const StatsCards = () => {
     {
       icon: "fas fa-user-graduate",
       type: "student",
-      value: "Gak tau aku cuk",
+      value: "400",
       label: "Total Mahasiswa"
     },
     {
@@ -17,7 +17,7 @@ const StatsCards = () => {
     {
       icon: "fas fa-book",
       type: "course",
-      value: "?",
+      value: "25",
       label: "Mata Kuliah"
     }
   ];
