@@ -255,19 +255,13 @@ const ProfilProdi = () => {
               height: '100%'
             }}>
               <p style={{ lineHeight: '1.8', marginBottom: '15px' }}>
-                <strong>Lorem ipsum dolor sit amet</strong>, consectetur adipiscing elit. 
-                Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                <strong>Akreditasi Baik Sekali</strong>, Terakreditasi Baik Sekali oleh LAM INFOKOM dengan standar penilaian yang mencakup kualitas kurikulum, kualifikasi dosen, sarana prasarana, kinerja lulusan, penelitian, pengabdian masyarakat, serta tata kelola prodi yang efektif dan berorientasi peningkatan mutu berkelanjutan.
               </p>
               <p style={{ lineHeight: '1.8', marginBottom: '15px' }}>
-                <strong>Duis aute irure dolor</strong> in reprehenderit in voluptate velit 
-                esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit.
+                <strong>Kurikulum OBE & Pembelajaran Modern</strong> Menggunakan kurikulum Outcome Based Education (OBE) yang menekankan capaian kompetensi lulusan, dilengkapi praktikum intensif, project-based learning, penelitian mahasiswa, kuliah tamu industri, dan metode pembelajaran yang adaptif terhadap perkembangan teknologi.
               </p>
               <p style={{ lineHeight: '1.8' }}>
-                <strong>Sed ut perspiciatis unde</strong> omnis iste natus error sit 
-                voluptatem accusantium doloremque laudantium, totam rem aperiam, 
-                eaque ipsa quae ab illo inventore veritatis.
+                <strong>Fokus Keahlian & Peluang Pengembangan</strong> Memiliki kekuatan di bidang kecerdasan buatan, data science, rekayasa perangkat lunak, jaringan komputer, keamanan siber, dan inovasi digital, serta menyediakan kesempatan magang industri, program MBKM, sertifikasi profesi, kompetisi teknologi, dan kolaborasi riset untuk memaksimalkan potensi dan kesiapan karier mahasiswa.
               </p>
             </div>
           </div>
@@ -297,16 +291,7 @@ const ProfilProdi = () => {
               height: '100%'
             }}>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
-                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-                eu fugiat nulla pariatur.
-              </p>
-              <p>
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
-                deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus 
-                error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+FMIPA Unimed berawal dari FKIP USU yang didirikan pada tahun 1957 untuk memenuhi kebutuhan guru di bidang matematika dan sains, kemudian berkembang menjadi IKIP Medan hingga berubah menjadi Universitas Negeri Medan pada tahun 2000. Setelah berubah menjadi universitas, FMIPA mulai mengelola program studi kependidikan dan nonkependidikan, termasuk Matematika, Fisika, Kimia, dan Biologi. Melihat pesatnya perkembangan teknologi informasi serta meningkatnya kebutuhan tenaga ahli IT, Unimed memasukkan rencana pendirian Program Studi Ilmu Komputer ke dalam Renstra 2016-2020. FMIPA kemudian menindaklanjuti rencana tersebut dan menempatkan Prodi Ilmu Komputer di bawah Jurusan Matematika. Program Studi Ilmu Komputer resmi dibuka melalui SK Menristekdikti Nomor 623/KPT/I/2017 dan hingga kini berkomitmen menyelenggarakan pendidikan berkualitas di bidang teknologi informasi untuk mendukung kebutuhan dunia industri dan perkembangan IPTEK.
               </p>
             </div>
           </div>
