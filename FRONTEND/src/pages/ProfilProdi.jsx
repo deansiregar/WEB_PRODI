@@ -82,7 +82,7 @@ const ProfilProdi = () => {
       <div className="content-section">
         <div className="grid-section">
           {/* Akreditasi */}
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ 
               color: 'var(--primary)', 
               marginBottom: '20px',
@@ -101,7 +101,7 @@ const ProfilProdi = () => {
               boxShadow: '0 8px 20px rgba(46, 139, 87, 0.15)',
               position: 'relative',
               overflow: 'hidden',
-              height: '100%'
+              flex: 1 // Agar tinggi menyesuaikan di desktop
             }}>
               <div style={{
                 position: 'absolute',
@@ -210,6 +210,7 @@ const ProfilProdi = () => {
                 </div>
               </div>
 
+              {/* PERBAIKAN 1: Nama file tanpa spasi */}
               <a 
                 href="/SERTIFIKAT_PRODI_ILMU_KOMPUTER.pdf"
                 download="SERTIFIKAT_AKREDITASI_ILMU_KOMPUTER_UNIMED.pdf"
@@ -231,13 +232,13 @@ const ProfilProdi = () => {
                   e.target.style.backgroundColor = 'var(--primary)';
                 }}
               >
-                TERAKREDITASI
+                DOWNLOAD SERTIFIKAT
               </a>
             </div>
           </div>
 
           {/* Keunggulan */}
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ 
               color: 'var(--primary)', 
               marginBottom: '20px',
@@ -247,12 +248,13 @@ const ProfilProdi = () => {
               <i className="fas fa-star" style={{ marginRight: '10px' }}></i>
               Keunggulan Program Studi
             </h3>
+            {/* PERBAIKAN 2: Hapus height: 100% diganti flex: 1 */}
             <div style={{ 
               backgroundColor: 'white',
               padding: '25px',
               borderRadius: '8px',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-              height: '100%'
+              flex: 1 
             }}>
               <p style={{ lineHeight: '1.8', marginBottom: '15px' }}>
                 <strong>Akreditasi Baik Sekali</strong>, Terakreditasi Baik Sekali oleh LAM INFOKOM dengan standar penilaian yang mencakup kualitas kurikulum, kualifikasi dosen, sarana prasarana, kinerja lulusan, penelitian, pengabdian masyarakat, serta tata kelola prodi yang efektif dan berorientasi peningkatan mutu berkelanjutan.
@@ -268,11 +270,11 @@ const ProfilProdi = () => {
         </div>
       </div>
 
-      {/* Sejarah & Visi Misi (Bersampingan di desktop) */}
+      {/* Sejarah & Visi Misi */}
       <div className="content-section">
         <div className="grid-section">
           {/* Sejarah */}
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ 
               color: 'var(--primary)', 
               marginBottom: '20px',
@@ -282,22 +284,23 @@ const ProfilProdi = () => {
               <i className="fas fa-history" style={{ marginRight: '10px' }}></i>
               Sejarah Program Studi
             </h3>
+            {/* PERBAIKAN 2: Hapus height: 100% diganti flex: 1 */}
             <div style={{ 
               lineHeight: '1.8',
               backgroundColor: 'white',
               padding: '25px',
               borderRadius: '8px',
               boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-              height: '100%'
+              flex: 1
             }}>
               <p>
-FMIPA Unimed berawal dari FKIP USU yang didirikan pada tahun 1957 untuk memenuhi kebutuhan guru di bidang matematika dan sains, kemudian berkembang menjadi IKIP Medan hingga berubah menjadi Universitas Negeri Medan pada tahun 2000. Setelah berubah menjadi universitas, FMIPA mulai mengelola program studi kependidikan dan nonkependidikan, termasuk Matematika, Fisika, Kimia, dan Biologi. Melihat pesatnya perkembangan teknologi informasi serta meningkatnya kebutuhan tenaga ahli IT, Unimed memasukkan rencana pendirian Program Studi Ilmu Komputer ke dalam Renstra 2016-2020. FMIPA kemudian menindaklanjuti rencana tersebut dan menempatkan Prodi Ilmu Komputer di bawah Jurusan Matematika. Program Studi Ilmu Komputer resmi dibuka melalui SK Menristekdikti Nomor 623/KPT/I/2017 dan hingga kini berkomitmen menyelenggarakan pendidikan berkualitas di bidang teknologi informasi untuk mendukung kebutuhan dunia industri dan perkembangan IPTEK.
+                FMIPA Unimed berawal dari FKIP USU yang didirikan pada tahun 1957 untuk memenuhi kebutuhan guru di bidang matematika dan sains, kemudian berkembang menjadi IKIP Medan hingga berubah menjadi Universitas Negeri Medan pada tahun 2000. Setelah berubah menjadi universitas, FMIPA mulai mengelola program studi kependidikan dan nonkependidikan, termasuk Matematika, Fisika, Kimia, dan Biologi. Melihat pesatnya perkembangan teknologi informasi serta meningkatnya kebutuhan tenaga ahli IT, Unimed memasukkan rencana pendirian Program Studi Ilmu Komputer ke dalam Renstra 2016-2020. FMIPA kemudian menindaklanjuti rencana tersebut dan menempatkan Prodi Ilmu Komputer di bawah Jurusan Matematika. Program Studi Ilmu Komputer resmi dibuka melalui SK Menristekdikti Nomor 623/KPT/I/2017 dan hingga kini berkomitmen menyelenggarakan pendidikan berkualitas di bidang teknologi informasi untuk mendukung kebutuhan dunia industri dan perkembangan IPTEK.
               </p>
             </div>
           </div>
 
           {/* Visi Misi */}
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ 
               color: 'var(--primary)', 
               marginBottom: '20px',
@@ -307,12 +310,13 @@ FMIPA Unimed berawal dari FKIP USU yang didirikan pada tahun 1957 untuk memenuhi
               <i className="fas fa-bullseye" style={{ marginRight: '10px' }}></i>
               Visi & Misi
             </h3>
+            {/* PERBAIKAN 2: Hapus height: 100% diganti flex: 1 */}
             <div style={{ 
               backgroundColor: 'rgba(46, 139, 87, 0.05)', 
               padding: '25px',
               borderRadius: '8px',
               borderLeft: '4px solid var(--primary)',
-              height: '100%'
+              flex: 1
             }}>
               <h4 style={{ color: 'var(--primary)', marginBottom: '10px' }}>Visi:</h4>
               <p style={{ fontStyle: 'italic', marginBottom: '20px' }}>
@@ -470,11 +474,11 @@ FMIPA Unimed berawal dari FKIP USU yang didirikan pada tahun 1957 untuk memenuhi
         </div>
       </div>
 
-      {/* Kontak & Lokasi (Bersampingan di desktop) */}
+      {/* Kontak & Lokasi */}
       <div className="content-section">
         <div className="grid-section">
           {/* Kontak */}
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ 
               color: 'var(--primary)', 
               marginBottom: '20px',
@@ -484,11 +488,12 @@ FMIPA Unimed berawal dari FKIP USU yang didirikan pada tahun 1957 untuk memenuhi
               <i className="fas fa-envelope" style={{ marginRight: '10px' }}></i>
               Kontak Program Studi
             </h3>
+            {/* PERBAIKAN 2: Hapus height: 100% diganti flex: 1 */}
             <div style={{ 
               backgroundColor: 'rgba(46, 139, 87, 0.05)', 
               padding: '25px',
               borderRadius: '8px',
-              height: '100%'
+              flex: 1
             }}>
               <div style={{ marginBottom: '15px' }}>
                 <strong>Program Studi Ilmu Komputer</strong><br/>
@@ -525,8 +530,8 @@ FMIPA Unimed berawal dari FKIP USU yang didirikan pada tahun 1957 untuk memenuhi
             </div>
           </div>
 
-          {/* Lokasi dengan Google Maps Embed */}
-          <div>
+          {/* Lokasi */}
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ 
               color: 'var(--primary)', 
               marginBottom: '20px',
@@ -536,18 +541,20 @@ FMIPA Unimed berawal dari FKIP USU yang didirikan pada tahun 1957 untuk memenuhi
               <i className="fas fa-map-marker-alt" style={{ marginRight: '10px' }}></i>
               Lokasi Kampus
             </h3>
+            {/* PERBAIKAN 2: Hapus height: 100% diganti flex: 1 */}
             <div style={{
               backgroundColor: '#f5f5f5',
               padding: '0',
               borderRadius: '8px',
-              height: '100%',
+              flex: 1,
               display: 'flex',
               flexDirection: 'column',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              minHeight: '350px' // Beri minHeight agar tetap terlihat di desktop
             }}>
               <div style={{
                 flex: 1,
-                minHeight: '300px'
+                minHeight: '250px'
               }}>
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d18645.301905230495!2d98.71030593647056!3d3.6037090599036246!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x303131714c40fccd%3A0x17660a6371985d8c!2sState%20University%20of%20Medan!5e0!3m2!1sid!2sid!4v1763966843366!5m2!1sid!2sid"
