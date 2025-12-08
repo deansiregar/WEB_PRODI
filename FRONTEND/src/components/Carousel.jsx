@@ -5,7 +5,7 @@ const Carousel = () => {
 
   const slides = [
     {
-      image: 'slide1.png',
+      image: 'slide1.jpg',
       title: 'ILMU KOMPUTER',
       description: 'Program Studi Unggul di Bidang Artificial Intelligence'
     },
@@ -15,7 +15,7 @@ const Carousel = () => {
       description: 'Menyiapkan Mahasiswa untuk Menjadi Programmer Handal'
     },
     {
-      image: 'slide3.png',
+      image: 'slide3.jpg',
       title: 'ILMU KOMPUTER',
       description: 'Fasilitas Laboratorium yang Modern dan Lengkap'
     }

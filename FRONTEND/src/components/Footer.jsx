@@ -43,7 +43,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        &copy; 2023 Program Studi Ilmu Komputer - Universitas Negeri Medan. All Rights Reserved.
+        &copy; 2025 Program Studi Ilmu Komputer - Universitas Negeri Medan. All Rights Reserved.
       </div>
     </footer>
   );
