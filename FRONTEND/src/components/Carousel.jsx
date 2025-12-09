@@ -10,7 +10,7 @@ const Carousel = () => {
       description: 'Program Studi Unggul di Bidang Artificial Intelligence'
     },
     {
-      image: 'slide2.png',
+      image: 'slide2.jpg',
       title: 'ILMU KOMPUTER',
       description: 'Menyiapkan Mahasiswa untuk Menjadi Programmer Handal'
     },
